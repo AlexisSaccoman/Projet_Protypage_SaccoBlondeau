@@ -1,6 +1,11 @@
+import parsing.ICSParsing;
+
+
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello world!");
+        ICSParsing parseur = new ICSParsing();
+
+        parseur.parse("parsing/data/sacco_1.ics");
     }
 }
