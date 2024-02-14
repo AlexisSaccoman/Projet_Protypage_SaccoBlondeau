@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="bg_login" prefHeight="700.0" prefWidth="1000.0" stylesheets="@LoginCSS.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="components.login.LoginController">
+<AnchorPane fx:id="bg_login" prefHeight="700.0" prefWidth="1000.0" stylesheets="@LoginCSS.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="java.login.LoginController">
    <children>
       <Label fx:id="titre_login" layoutX="284.0" layoutY="328.0" text="CECI EST LA FENETRE D'ACCUEIL" />
    </children>

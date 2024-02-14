@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="ical4j-3.0.181">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../Programmation/JavaLibraries/ical4j-3.0.18.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../Programmation/JavaLibraries/ical4j-3.0.18.jar!/" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/ical4j-3.0.18-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
