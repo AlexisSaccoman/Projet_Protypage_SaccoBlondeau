@@ -18,12 +18,14 @@ public class ICSParsing{
         try{
             FileInputStream fin = new FileInputStream(filePath);
             CalendarBuilder builder = new CalendarBuilder();
+            /*
             Calendar calendar = builder.build(fin);
             System.out.println(calendar);
+            return calendar;
+            */
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         System.out.println("#-------------------------------------------#");
-
     }
 }

@@ -1,4 +1,4 @@
-package login;
+package components.login;
 
 import components.divers.Personne;
 import javafx.event.ActionEvent;
@@ -41,7 +41,7 @@ public class LoginController {
         if(p != null){
             // Appelle la méthode de parsing après le lancement de l'interface utilisateur
             ICSParsing parseur = new ICSParsing();
-            afficherEmploiDuTemps(parseur.parse("parsing/data/sacco_1.ics"), p);
+            //afficherEmploiDuTemps(parseur.parse("parsing/data/sacco_1.ics"), p); //TODO
         }
     }
 
@@ -56,7 +56,7 @@ public class LoginController {
                     String storedPassword = parts[1].trim();
                     String storedStatut = parts[2].trim();
                     if (login.equals(storedLogin) && password.equals(storedPassword)) {
-                        return new Personne(storedStatut; storedLogin);
+                        return new Personne(storedStatut, storedLogin);
                     }
                 }
             }
