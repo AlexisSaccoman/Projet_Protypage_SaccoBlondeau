@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Charge le fichier FXML de votre interface utilisateur (Login.fxml)
-        Parent root = FXMLLoader.load(getClass().getResource("./components/login/LoginInterface.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("src/main/java/components/login/LoginInterface.fxml"));
         primaryStage.setTitle("P-ETD-H");
 
         primaryStage.setResizable(false);
