@@ -1,3 +1,4 @@
+import net.fortuna.ical4j.model.Calendar;
 import parsing.ICSParsing;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +13,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         System.out.println("Launching");
-        launch(args);
+        ICSParsing icsParsing = new ICSParsing();
+        Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
+        icsParsing.filter(calendar);
+        //launch(args);
     }
 
     @Override
