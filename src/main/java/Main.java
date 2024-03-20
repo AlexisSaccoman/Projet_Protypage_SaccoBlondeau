@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import parsing.fonctParsing.CreneauManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,10 +13,12 @@ import java.io.InputStream;
 public class Main extends Application {
 
     public static void main(String[] args) {
+        CreneauManager creneauManager = new CreneauManager();
         System.out.println("Launching");
         ICSParsing icsParsing = new ICSParsing();
         Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
-        icsParsing.filter(calendar);
+        creneauManager.setCours(icsParsing.getAllCours(calendar));
+        System.out.println("Cours : " + creneauManager.getCours().size());
         //launch(args);
     }
 
