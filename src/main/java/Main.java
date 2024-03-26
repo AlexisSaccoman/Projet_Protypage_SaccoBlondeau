@@ -5,23 +5,34 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import parsing.fonctParsing.Creneau;
 import parsing.fonctParsing.CreneauController;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Main extends Application {
 
     public static void main(String[] args) {
-        CreneauController creneauManager = new CreneauController();
+        CreneauController creneauController = new CreneauController();
         System.out.println("Launching");
         ICSParsing icsParsing = new ICSParsing();
+
         Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
-        creneauManager.setCours(icsParsing.getAllCours(calendar));
-        System.out.println("Cours : " + creneauManager.getCours().size());
-        //System.out.println(creneauManager.getCoursByDay("2024-03-14"));
-        //System.out.println(creneauManager.getCoursByProf("VERNET").get(0).getDescription());
-        //launch(args);
+        creneauController.setCours(icsParsing.getAllCours(calendar));
+
+        System.out.println("Cours : " + creneauController.getCours().size());
+        // ArrayList<Creneau> coursAujourdhui = creneauController.getCoursByDay("2024-03-14");
+        // creneauController.afficherEmploiDuTemps(coursAujourdhui);
+
+        // ArrayList<Creneau> coursVernet = creneauController.getCoursByProf("VERNET");
+        // creneauController.afficherEmploiDuTemps(coursVernet);
+
+        ArrayList<Creneau> coursSalle = creneauController.getCoursBySalle("C 137");
+        creneauController.afficherEmploiDuTemps(coursSalle);
+
+        // launch(args);
     }
 
     @Override
