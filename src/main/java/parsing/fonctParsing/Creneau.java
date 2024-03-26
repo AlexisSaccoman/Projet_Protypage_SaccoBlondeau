@@ -1,28 +1,27 @@
 package parsing.fonctParsing;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Creneau {
 
-    Date heureDeb;
+    Date heureDebut;
     Date heureFin;
     String salle;
     String description;
 
-    public Creneau(Date heureDeb, Date heureFin, String salle, String description) {
-        this.heureDeb = heureDeb;
+    public Creneau(Date heureDebut, Date heureFin, String salle, String description) {
+        this.heureDebut = heureDebut;
         this.heureFin = heureFin;
         this.salle = salle;
         this.description = description;
     }
 
-    public Date getHeureDeb() {
-        return heureDeb;
+    public Date getHeureDebut() {
+        return heureDebut;
     }
 
-    public void setHeureDeb(Date heureDeb) {
-        this.heureDeb = heureDeb;
+    public void setHeureDebut(Date heureDebut) {
+        this.heureDebut = heureDebut;
     }
 
     public Date getHeureFin() {

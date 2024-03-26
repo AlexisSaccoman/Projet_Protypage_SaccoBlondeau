@@ -5,20 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import parsing.fonctParsing.CreneauManager;
+import parsing.fonctParsing.CreneauController;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Main extends Application {
 
     public static void main(String[] args) {
-        CreneauManager creneauManager = new CreneauManager();
+        CreneauController creneauManager = new CreneauController();
         System.out.println("Launching");
         ICSParsing icsParsing = new ICSParsing();
         Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
         creneauManager.setCours(icsParsing.getAllCours(calendar));
         System.out.println("Cours : " + creneauManager.getCours().size());
+        //System.out.println(creneauManager.getCoursByDay("2024-03-14"));
+        //System.out.println(creneauManager.getCoursByProf("VERNET").get(0).getDescription());
         //launch(args);
     }
 
