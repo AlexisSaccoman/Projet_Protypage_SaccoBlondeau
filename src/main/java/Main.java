@@ -32,7 +32,7 @@ public class Main extends Application {
         ArrayList<Creneau> coursSalle = creneauController.getCoursBySalle("C 137");
         creneauController.afficherEmploiDuTemps(coursSalle);
 
-        // launch(args);
+        launch(args);
     }
 
     @Override

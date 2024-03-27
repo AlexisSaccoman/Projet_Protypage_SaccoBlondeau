@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -17,267 +16,215 @@
 
 
 <AnchorPane prefHeight="800.0" prefWidth="1070.0" stylesheets="@AccueilEtudiantCSS.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
-   <children>
-      <HBox prefHeight="800.0" prefWidth="1070.0">
-         <children>
-            <VBox prefHeight="800.0" prefWidth="300.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
-                     <children>
-                        <Label text="##-##-####">
-                           <font>
-                              <Font size="26.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="325.0" prefWidth="300.0">
-                     <children>
-                        <Label text="FILTRER">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ChoiceBox fx:id="selectionGroupe" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                        <ChoiceBox fx:id="selectionGroupe1" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                        <ChoiceBox fx:id="selectionGroupe2" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                        <ChoiceBox fx:id="selectionGroupe3" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                        <ChoiceBox fx:id="selectionGroupe31" prefWidth="150.0">
-                           <VBox.margin>
-                              <Insets top="20.0" />
-                           </VBox.margin>
-                        </ChoiceBox>
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="475.0" prefWidth="300.0">
-                     <children>
-                        <Label alignment="CENTER" prefWidth="300.0" text="Ajouter un événement">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="10.0" top="10.0" />
-                           </padding>
-                        </Label>
-                        <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
-                           <children>
-                              <Label alignment="CENTER" text="DATE" />
-                              <DatePicker>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </DatePicker>
-                           </children>
+    <children>
+        <HBox prefHeight="800.0" prefWidth="1070.0">
+            <children>
+                <VBox prefHeight="800.0" prefWidth="300.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
+                            <children>
+                                <Label text="##-##-####">
+                                    <font>
+                                        <Font size="26.0" />
+                                    </font>
+                                </Label>
+                            </children>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
-                           <children>
-                              <Label alignment="CENTER" text="COULEUR" />
-                              <ChoiceBox prefWidth="150.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </ChoiceBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
-                           <children>
-                              <Label alignment="CENTER" text="INTITULE" />
-                              <TextField>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="AJOUTER">
-                                 <graphic>
-                                    <FontAwesomeIcon glyphName="PLUS" text="" />
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="800.0" prefWidth="770.0">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="900.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="600.0">
-                           <children>
-                              <Label text="01-07 January  2024">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <ChoiceBox fx:id="selectionGroupe4" prefWidth="150.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </ChoiceBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0">
-                           <children>
-                              <Label text="Jean Bond">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Avatar radius="25.0">
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                              </Avatar>
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="30.0" prefWidth="770.0" style="-fx-background-color: #323232;">
-                     <children>
-                        <Pane prefHeight="30.0" prefWidth="70.0" />
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="LUNDI" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="MARDI" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="MERCREDI" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="JEUDI" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="VENDREDI" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="SAMEDI" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="DIMANCHE" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="670.0" prefWidth="900.0" style="-fx-background-color: yellow;">
-                     <children>
-                        <VBox prefHeight="670.0" prefWidth="70.0" style="-fx-background-color: #323232;">
-                           <children>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="08:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="09:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="10:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="11:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="12:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="13:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="14:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="15:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="16:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="17:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="18:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="19:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="70.0" text="20:00" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
+                        <VBox alignment="TOP_CENTER" prefHeight="325.0" prefWidth="300.0">
+                            <children>
+                                <Label text="FILTRER">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                                <ChoiceBox fx:id="selectionGroupe" prefWidth="150.0"/>
+                                <ChoiceBox fx:id="selectionGroupe1" prefWidth="150.0"/>
+                                <ChoiceBox fx:id="selectionGroupe2" prefWidth="150.0"/>
+                                <ChoiceBox fx:id="selectionGroupe3" prefWidth="150.0"/>
+                                <ChoiceBox fx:id="selectionGroupe31" prefWidth="150.0"/>
+                            </children>
                         </VBox>
-                        <FlowPane prefHeight="670.0" prefWidth="700.0" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </children>
+                        <VBox alignment="TOP_CENTER" prefHeight="475.0" prefWidth="300.0">
+                            <children>
+                                <Label alignment="CENTER" prefWidth="300.0" text="Ajouter un événement">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="10.0" top="10.0" />
+                                    </padding>
+                                </Label>
+                                <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
+                                    <children>
+                                        <Label alignment="CENTER" text="DATE" />
+                                        <DatePicker/>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
+                                    <children>
+                                        <Label alignment="CENTER" text="COULEUR" />
+                                        <ChoiceBox prefWidth="150.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
+                                    <children>
+                                        <Label alignment="CENTER" text="INTITULE" />
+                                        <TextField/>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
+                                    <children>
+                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="AJOUTER">
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+                <VBox prefHeight="800.0" prefWidth="770.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="900.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="600.0">
+                                    <children>
+                                        <Label text="01-07 January  2024">
+                                            <font>
+                                                <Font size="24.0" />
+                                            </font>
+                                        </Label>
+                                        <ChoiceBox fx:id="selectionGroupe4" prefWidth="150.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0">
+                                    <children>
+                                        <Label text="Jean Bond">
+                                            <font>
+                                                <Font size="15.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="30.0" prefWidth="770.0" style="-fx-background-color: #323232;">
+                            <children>
+                                <Pane prefHeight="30.0" prefWidth="70.0" />
+                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="LUNDI" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="MARDI" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="MERCREDI" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="JEUDI" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="VENDREDI" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="SAMEDI" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="DIMANCHE" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="13.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="670.0" prefWidth="900.0" style="-fx-background-color: yellow;">
+                            <children>
+                                <VBox prefHeight="670.0" prefWidth="70.0" style="-fx-background-color: #323232;">
+                                    <children>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="08:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="09:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="10:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="11:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="12:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="13:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="14:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="15:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="16:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="17:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="18:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="19:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="70.0" text="20:00" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <FlowPane prefHeight="670.0" prefWidth="700.0" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>
+
