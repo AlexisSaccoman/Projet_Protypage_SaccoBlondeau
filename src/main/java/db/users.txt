@@ -1,2 +1,3 @@
 etudiant;sacco;test
 etudiant;blondeau;test
+enseignant;cecillion;test

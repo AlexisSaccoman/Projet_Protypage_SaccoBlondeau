@@ -1,0 +1,30 @@
+
+
+/* AccueilEtudiantCSS.css */
+
+/* Styles pour les éléments avec les ID */
+#selectionGroupe,
+#selectionGroupe1,
+#selectionGroupe2,
+#selectionGroupe3,
+#selectionGroupe31,
+#selectionGroupe4 {
+    -fx-margin-top: 20.0;
+}
+
+/* Styles généraux */
+/*
+.label {
+    -fx-font-size: 13.0;
+    -fx-text-fill: white;
+}
+*/
+
+/* Styles spécifiques */
+#labelDate,
+#labelCouleur,
+#labelIntitule {
+    -fx-margin-left: 20.0;
+}
+
+/* Autres styles selon vos besoins */

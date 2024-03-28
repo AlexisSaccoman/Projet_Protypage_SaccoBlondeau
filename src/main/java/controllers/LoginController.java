@@ -56,10 +56,10 @@ public class LoginController {
             System.out.println("Statut : " + p.statut);
 
             if(p.statut.equals("etudiant")){ // on va vers l'interface correspondate
-                switchToInterface2("accueilEtudiant/AccueilEtudiantInterface.fxml");
+                switchToInterface2("/components/accueilEtudiant/AccueilEtudiantInterface.fxml");
                 System.out.println("Etudiant");
             }else if(p.statut.equals("enseignant")){
-                switchToInterface2("accueilEnseignant/AccueilEnseignantInterface.fxml");
+                switchToInterface2("/components/accueilEnseignant/AccueilEnseignantInterface.fxml");
                 System.out.println("Enseignant");
             }
         }
@@ -82,18 +82,28 @@ public class LoginController {
         }
     }
 
-    @FXML
-    private void switchToInterface2(String nomInterface) {
+    private void switchToInterface2(String fxmlPath) {
         try {
-            // Charger le fichier FXML de l'interface suivante en fonction du nom passé en paramètre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(""));
+            // Chargement du fichier FXML de la nouvelle interface
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+
             Parent root = loader.load();
-            Scene scene = bg_login.getScene();
-            scene.setRoot(root);
+
+            // Création d'une nouvelle scène avec la nouvelle interface
+            Scene scene = new Scene(root);
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) bg_login.getScene().getWindow();
+
+            // Mise à jour de la scène pour afficher la nouvelle interface
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 
 
 }
