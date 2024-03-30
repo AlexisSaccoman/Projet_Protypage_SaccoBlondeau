@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="1070.0" stylesheets="@AccueilEtudiantCSS.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
+<AnchorPane prefHeight="800.0" prefWidth="1070.0" stylesheets="@AccueilEtudiantCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
     <children>
-        <HBox prefHeight="800.0" prefWidth="1070.0">
+        <HBox prefHeight="800.0" prefWidth="1070.0" styleClass="box">
             <children>
                 <VBox prefHeight="800.0" prefWidth="300.0">
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
                             <children>
-                                <Label text="##-##-####">
+                                <Label fx:id="today_date" text="##-##-####">
                                     <font>
                                         <Font size="26.0" />
                                     </font>
@@ -32,16 +33,36 @@
                         </HBox>
                         <VBox alignment="TOP_CENTER" prefHeight="325.0" prefWidth="300.0">
                             <children>
-                                <Label text="FILTRER">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                </Label>
-                                <ChoiceBox fx:id="selectionGroupe" prefWidth="150.0"/>
-                                <ChoiceBox fx:id="selectionGroupe1" prefWidth="150.0"/>
-                                <ChoiceBox fx:id="selectionGroupe2" prefWidth="150.0"/>
-                                <ChoiceBox fx:id="selectionGroupe3" prefWidth="150.0"/>
-                                <ChoiceBox fx:id="selectionGroupe31" prefWidth="150.0"/>
+                        <Label prefHeight="28.0" prefWidth="150.0" text="Salles">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                                <ChoiceBox fx:id="selectionGroupe" prefWidth="150.0" styleClass="button" />
+                        <Label prefHeight="28.0" prefWidth="150.0" text="Type de cours">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                                <ChoiceBox fx:id="selectionGroupe1" prefWidth="150.0" styleClass="button" />
+                        <Label prefHeight="28.0" prefWidth="150.0" text="Matières">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                                <ChoiceBox fx:id="selectionGroupe2" prefWidth="150.0" styleClass="button" />
+                        <Label prefHeight="28.0" prefWidth="150.0" text="Groupe">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                                <ChoiceBox fx:id="selectionGroupe3" prefWidth="150.0" styleClass="button" />
+                        <Label prefHeight="28.0" prefWidth="150.0" text="Salles">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                                <ChoiceBox fx:id="selectionGroupe31" prefWidth="150.0" styleClass="button" />
                             </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="475.0" prefWidth="300.0">
@@ -57,19 +78,28 @@
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
                                         <Label alignment="CENTER" text="DATE" />
-                                        <DatePicker/>
+                                        <DatePicker>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin></DatePicker>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
                                         <Label alignment="CENTER" text="COULEUR" />
-                                        <ChoiceBox prefWidth="150.0"/>
+                                        <ChoiceBox prefWidth="150.0" styleClass="button">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin></ChoiceBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
                                         <Label alignment="CENTER" text="INTITULE" />
-                                        <TextField/>
+                                        <TextField>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin></TextField>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
@@ -82,7 +112,7 @@
                         </VBox>
                     </children>
                 </VBox>
-                <VBox prefHeight="800.0" prefWidth="770.0">
+                <VBox prefHeight="800.0" prefWidth="770.0" styleClass="box" HBox.hgrow="ALWAYS">
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="900.0">
                             <children>
@@ -93,12 +123,20 @@
                                                 <Font size="24.0" />
                                             </font>
                                         </Label>
-                                        <ChoiceBox fx:id="selectionGroupe4" prefWidth="150.0"/>
+                                        <ChoiceBox fx:id="selectionGroupe4" prefWidth="150.0" styleClass="button">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></ChoiceBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0">
                                     <children>
-                                        <Label text="Jean Bond">
+                              <ToggleButton fx:id="toggle_light" mnemonicParsing="false" onAction="#toggle_light_action" prefHeight="25.0" prefWidth="67.0" text="Light">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </ToggleButton>
+                                        <Label fx:id="nomPrenom" prefHeight="21.0" prefWidth="107.0" text="Jean Bond">
                                             <font>
                                                 <Font size="15.0" />
                                             </font>
@@ -218,7 +256,46 @@
                                         </Label>
                                     </children>
                                 </VBox>
-                                <FlowPane prefHeight="670.0" prefWidth="700.0" />
+                        <GridPane fx:id="grid_edt" mouseTransparent="true" prefHeight="670.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
                             </children>
                         </HBox>
                     </children>
@@ -227,4 +304,3 @@
         </HBox>
     </children>
 </AnchorPane>
-

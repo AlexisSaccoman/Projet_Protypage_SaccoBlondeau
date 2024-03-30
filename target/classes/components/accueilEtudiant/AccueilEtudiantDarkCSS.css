@@ -1,0 +1,43 @@
+
+
+
+.label {
+    -fx-text-fill: white;
+}
+
+.pane_edt {
+    -fx-background-color: red;
+}
+
+.button{
+    -fx-background-color: #797979;
+    -fx-text-fill: white;
+    -fx-border-color: #282828;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
+
+.button:hover{
+    -fx-background-color: #4f4f4f;
+    -fx-border-color: white;
+}
+
+.box{
+    -fx-background-color: #282828;
+}
+
+/* -------- fx-id ------------ */
+
+
+#edt {
+    -fx-background-color: #282828;
+}
+
+
+#today_date{
+    -fx-text-fill: #ff8300;
+}
+
+#grid_edt{ /* grid pane on veut 13 lignes et 7 colonnes avec toutes les bordures en blanc*/
+    -fx-background-color: #282828;
+}

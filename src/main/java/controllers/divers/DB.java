@@ -18,7 +18,7 @@ public class DB {
             String line = reader.readLine();
             while (line != null) {
                 String[] parts = line.split(";");
-                personnes.add(new Personne(parts[0], parts[1], parts[2]));
+                personnes.add(new Personne(parts[0], parts[1], parts[2], parts[3]));
                 line = reader.readLine();
             }
             reader.close();
