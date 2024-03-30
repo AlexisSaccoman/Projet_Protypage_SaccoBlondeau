@@ -20,7 +20,7 @@ public class AccueilEtudiantController implements Initializable {
     private ChoiceBox<String> selectionGroupe;
 
     @FXML
-    private ChoiceBox<?> selectionGroupe1;
+    private ChoiceBox<String> selectionGroupe1;
 
     @FXML
     private ChoiceBox<?> selectionGroupe2;
@@ -37,11 +37,17 @@ public class AccueilEtudiantController implements Initializable {
     DB dbController = new DB();
 
     public void initData(){
-        ArrayList<String> groupes = readFile("src\\main\\java\\db\\salles.txt");
-        for (String groupe : groupes) {
-            selectionGroupe.getItems().add(groupe);
+        ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
+        for (String salle : salles) {
+            selectionGroupe.getItems().add(salle);
         }
         selectionGroupe.setValue("Salle");
+
+        ArrayList<String> groupes = readFile("src\\main\\java\\db\\groupes.txt");
+        for(String groupe : groupes){
+            selectionGroupe1.getItems().add(groupe);
+        }
+        selectionGroupe1.setValue("Groupe");
     }
 
     public ArrayList<String> readFile(String filePath) {
