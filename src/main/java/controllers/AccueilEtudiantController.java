@@ -1,12 +1,23 @@
 package controllers;
 
+import controllers.divers.DB;
+import controllers.divers.Personne;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 
-public class AccueilEtudiantController {
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class AccueilEtudiantController implements Initializable {
 
     @FXML
-    private ChoiceBox<?> selectionGroupe;
+    private ChoiceBox<String> selectionGroupe;
 
     @FXML
     private ChoiceBox<?> selectionGroupe1;
@@ -23,9 +34,35 @@ public class AccueilEtudiantController {
     @FXML
     private ChoiceBox<?> selectionGroupe4;
 
-    public void initData(String info){
-        System.out.println("Personne connectée --> " + info);
+    DB dbController = new DB();
+
+    public void initData(){
+        ArrayList<String> groupes = readFile("src\\main\\java\\db\\salles.txt");
+        for (String groupe : groupes) {
+            selectionGroupe.getItems().add(groupe);
+        }
+        selectionGroupe.setValue("Salle");
     }
 
+    public ArrayList<String> readFile(String filePath) {
+        ArrayList<String> lines = new ArrayList<>();
+        try {
+            File file = new File(filePath);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line = reader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initData();
+    }
 }
 

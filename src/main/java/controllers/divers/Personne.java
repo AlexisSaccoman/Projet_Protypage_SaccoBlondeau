@@ -3,7 +3,6 @@ package controllers.divers;
 public class Personne {
     public String statut;
     public String login;
-
     public String password;
 
     public Personne(String statut, String login, String password) {

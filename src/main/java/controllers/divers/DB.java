@@ -14,7 +14,7 @@ public class DB {
 
     public void readAndAdd(){ // lit le fichier users.txt et ajoute les utilisateurs à la liste de personnes
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Alexis\\Documents\\files\\Cours\\master\\Semestre 8\\UE Prototypage\\Projet_Protypage_SaccoBlondeau\\src\\main\\java\\db\\users.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\db\\users.txt"));
             String line = reader.readLine();
             while (line != null) {
                 String[] parts = line.split(";");
@@ -30,7 +30,7 @@ public class DB {
     public Personne verify(String login, String pw){ // vérifie pour des identifiants donnés si ils sont corrects. Si oui on return un objet Personne
         for(Personne p : personnes){
             if(p.login.equals(login) && p.password.equals(pw)){
-                System.out.println("Personne connectée --> " + p.login + " est " + p.statut);
+                System.out.println("Personne connectee --> " + p.login + " est " + p.statut);
                 return p;
             }
         }

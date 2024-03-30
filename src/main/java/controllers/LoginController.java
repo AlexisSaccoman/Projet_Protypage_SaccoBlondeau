@@ -57,10 +57,8 @@ public class LoginController {
 
             if(p.statut.equals("etudiant")){ // on va vers l'interface correspondate
                 switchToInterface2("/components/accueilEtudiant/AccueilEtudiantInterface.fxml");
-                System.out.println("Etudiant");
             }else if(p.statut.equals("enseignant")){
                 switchToInterface2("/components/accueilEnseignant/AccueilEnseignantInterface.fxml");
-                System.out.println("Enseignant");
             }
         }
     }
