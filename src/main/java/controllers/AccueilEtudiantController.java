@@ -4,6 +4,10 @@ import controllers.divers.Personne;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import controllers.divers.DB;
+import controllers.divers.Personne;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -14,7 +18,17 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AccueilEtudiantController {
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+public class AccueilEtudiantController implements Initializable {
+
+    DB dbController = new DB();
 
     @FXML
     private GridPane grid_edt;
@@ -23,10 +37,10 @@ public class AccueilEtudiantController {
     private Label nomPrenom;
 
     @FXML
-    private ChoiceBox<?> selectionGroupe;
+    private ChoiceBox<String> selectionGroupe;
 
     @FXML
-    private ChoiceBox<?> selectionGroupe1;
+    private ChoiceBox<String> selectionGroupe1;
 
     @FXML
     private ChoiceBox<?> selectionGroupe2;
@@ -39,7 +53,6 @@ public class AccueilEtudiantController {
 
     @FXML
     private ChoiceBox<?> selectionGroupe4;
-
     @FXML
     private Label today_date;
 
@@ -50,6 +63,18 @@ public class AccueilEtudiantController {
         // Utiliser les données passées pour initialiser votre interface utilisateur
         nomPrenom.setText(username);
         today_date.setText(date.toString());
+
+        ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
+        for (String salle : salles) {
+            selectionGroupe.getItems().add(salle);
+        }
+        selectionGroupe.setValue("Salle");
+
+        ArrayList<String> groupes = readFile("src\\main\\java\\db\\groupes.txt");
+        for(String groupe : groupes){
+            selectionGroupe1.getItems().add(groupe);
+        }
+        selectionGroupe1.setValue("Groupe");
     }
 
     @FXML
@@ -109,4 +134,24 @@ public class AccueilEtudiantController {
         }
     }
 
+    public ArrayList<String> readFile(String filePath) {
+        ArrayList<String> lines = new ArrayList<>();
+        try {
+            File file = new File(filePath);
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line = reader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initData();
+    }
 }

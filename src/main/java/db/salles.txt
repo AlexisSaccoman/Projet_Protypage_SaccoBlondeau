@@ -1,0 +1,24 @@
+Amphi Ada
+Amphi Blaise
+Cisco = C 133 Réseaux
+Elec = C 133b Electronique
+Res = C 132 Reseaux
+Rob = C 134 Robotique
+S1 = C 042 Nodes
+S2 = C 040
+S2 bis = C 038
+S3 = C 036
+S4 = C 034
+S5 = C 024
+S6 = C 022
+S7 = C 032
+S8 = C 030
+Stat 1 = Info - C 137
+Stat 2 = Info - C 136
+Stat 3 = Info - C 135
+Stat 4 = Info - C 131
+Stat 5 = Info - C 130
+Stat 6 = Info - C 129
+Stat 7 = Info - C 128
+Stat 8 = Info - C 127
+Stat 9 = Info - C 026

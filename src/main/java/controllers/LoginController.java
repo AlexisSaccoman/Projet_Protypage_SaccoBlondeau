@@ -58,6 +58,7 @@ public class LoginController {
             }else if(p.statut.equals("enseignant")){
                 switchToInterface2("/components/accueilEnseignant/AccueilEnseignantInterface.fxml", "/components/accueilEnseignant/" + p.css + ".css", p.login, currentDate);
                 System.out.println("Enseignant");
+
             }
         }
     }
