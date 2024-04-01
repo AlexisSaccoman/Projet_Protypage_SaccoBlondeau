@@ -182,7 +182,7 @@ public class AccueilEtudiantController implements Initializable {
         ArrayList<Creneau> cours = creneauController.getCours();
 
         Map<String, Integer> heureDebutIndexMap = new HashMap<>();
-        heureDebutIndexMap.put("08:30", 2);
+        heureDebutIndexMap.put("08:30", 0);
         heureDebutIndexMap.put("10:00", 5);
         heureDebutIndexMap.put("11:30", 8);
         heureDebutIndexMap.put("13:00", 11);

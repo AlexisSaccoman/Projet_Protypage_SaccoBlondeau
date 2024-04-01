@@ -59,7 +59,6 @@ public class Creneau {
         Label heureFinLabel = new Label(sdf.format(heureFin));
         Label salleLabel = new Label(salle);
         Label descriptionLabel = new Label(description);
-        vbox.setPrefSize(200, 100);
         vbox.setStyle("-fx-background-color: lightblue;");
         vbox.getChildren().addAll(heureDebutLabel, heureFinLabel, salleLabel, descriptionLabel);
         return vbox;
