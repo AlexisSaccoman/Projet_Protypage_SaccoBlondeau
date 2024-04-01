@@ -180,23 +180,26 @@ public class AccueilEtudiantController implements Initializable {
         Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
         creneauController.setCours(icsParsing.getAllCours(calendar));
         ArrayList<Creneau> cours = creneauController.getCours();
+        cours = creneauController.getCoursByDay("2024-03-14");
 
-        Map<String, Integer> heureDebutIndexMap = new HashMap<>();
-        heureDebutIndexMap.put("08:30", 0);
-        heureDebutIndexMap.put("10:00", 5);
-        heureDebutIndexMap.put("11:30", 8);
-        heureDebutIndexMap.put("13:00", 11);
-        heureDebutIndexMap.put("14:30", 14);
-        heureDebutIndexMap.put("16:00", 17);
-        heureDebutIndexMap.put("17:30", 20);
+        Map<String, Integer> heureIndexMap = new HashMap<>();
+        heureIndexMap.put("08:30", 0);
+        heureIndexMap.put("10:00", 5);
+        heureIndexMap.put("11:30", 8);
+        heureIndexMap.put("13:00", 11);
+        heureIndexMap.put("14:30", 14);
+        heureIndexMap.put("16:00", 17);
+        heureIndexMap.put("17:30", 20);
 
         for (Creneau c : cours) {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            Integer index = heureDebutIndexMap.get(sdf.format(c.getHeureDebut()));
-            if (index == null) {
+            Integer indexHeureDebut = heureIndexMap.get(sdf.format(c.getHeureDebut()));
+            Integer indexHeureFin = heureIndexMap.get(sdf.format(c.getHeureFin()));
+            if (indexHeureDebut == null || indexHeureFin == null) {
                 continue;
             }
-            grid_edt.add(c.getVbox(), 0, index);
+            System.out.println(indexHeureDebut + " " + indexHeureFin);
+            grid_edt.add(c.getVbox(), 0, indexHeureDebut, 1, indexHeureFin - indexHeureDebut);
         }
     }
 }
