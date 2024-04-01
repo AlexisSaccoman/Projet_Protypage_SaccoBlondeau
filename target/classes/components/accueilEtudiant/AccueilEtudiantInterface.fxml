@@ -118,11 +118,29 @@
                             <children>
                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="600.0">
                                     <children>
-                                        <Label text="01-07 January  2024">
-                                            <font>
-                                                <Font size="24.0" />
-                                            </font>
-                                        </Label>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                              <Label fx:id="edt_affichage_date" prefHeight="100.0" text="01-07 January  2024">
+                                                  <font>
+                                                      <Font size="24.0" />
+                                                  </font>
+                                              </Label>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="time_backward" mnemonicParsing="false" onAction="#backward" text="Backward">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="time_forward" mnemonicParsing="false" onAction="#forward" text="Forward">
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                                         <ChoiceBox fx:id="selectionGroupe4" prefWidth="150.0" styleClass="button">
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -185,71 +203,71 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <HBox prefHeight="670.0" prefWidth="900.0" style="-fx-background-color: yellow;">
+                        <HBox prefHeight="670.0" prefWidth="900.0">
                             <children>
                                 <VBox prefHeight="670.0" prefWidth="70.0" style="-fx-background-color: #323232;">
                                     <children>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="08:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="08:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="09:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="09:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="10:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="10:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="11:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="11:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="12:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="12:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="13:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="13:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="14:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="14:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="15:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="15:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="16:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="16:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="17:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="17:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="18:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="18:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="52.0" prefWidth="70.0" text="19:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="19:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="70.0" text="20:00" textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="20:00" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
