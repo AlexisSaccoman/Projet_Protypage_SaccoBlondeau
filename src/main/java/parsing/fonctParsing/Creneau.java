@@ -55,12 +55,11 @@ public class Creneau {
     public VBox getVbox() {
         VBox vbox = new VBox();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        Label heureDebutLabel = new Label(sdf.format(heureDebut));
-        Label heureFinLabel = new Label(sdf.format(heureFin));
+        Label heureLabel = new Label(sdf.format(heureDebut) + " - " + sdf.format(heureFin));
         Label salleLabel = new Label(salle);
         Label descriptionLabel = new Label(description);
         vbox.setStyle("-fx-background-color: lightblue;");
-        vbox.getChildren().addAll(heureDebutLabel, heureFinLabel, salleLabel, descriptionLabel);
+        vbox.getChildren().addAll(heureLabel, salleLabel, descriptionLabel);
         return vbox;
     }
 }
