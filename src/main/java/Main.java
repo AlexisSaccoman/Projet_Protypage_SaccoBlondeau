@@ -32,9 +32,6 @@ public class Main extends Application {
         //ArrayList<Creneau> coursSalle = creneauController.getCoursBySalle("C 137");
         //creneauController.afficherEmploiDuTemps(coursSalle);
 
-        ArrayList<Creneau> coursType = creneauController.getCoursByAnything("Evaluation");
-        creneauController.afficherEmploiDuTemps(coursType);
-
         launch(args);
     }
 

@@ -12,11 +12,19 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import net.fortuna.ical4j.model.Calendar;
+import parsing.ICSParsing;
+import parsing.fonctParsing.Creneau;
+import parsing.fonctParsing.CreneauController;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,7 +32,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class AccueilEtudiantController implements Initializable {
 
@@ -59,34 +66,10 @@ public class AccueilEtudiantController implements Initializable {
     @FXML
     private ToggleButton toggle_light;
 
-    public void initData(String username, LocalDate date) {
+    public void setUsernameAndDate(String username, LocalDate date) {
         // Utiliser les données passées pour initialiser votre interface utilisateur
         nomPrenom.setText(username);
         today_date.setText(date.toString());
-
-        ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
-        for (String salle : salles) {
-            selectionGroupe.getItems().add(salle);
-        }
-        selectionGroupe.setValue("Salle");
-
-        ArrayList<String> typeDeCours = readFile("src\\main\\java\\db\\typeDeCours.txt");
-        for (String type : typeDeCours) {
-            selectionGroupe1.getItems().add(type);
-        }
-        selectionGroupe1.setValue("Type de cours");
-
-        ArrayList<String> matieres = readFile("src\\main\\java\\db\\matieres.txt");
-        for (String matiere : matieres) {
-            selectionGroupe2.getItems().add(matiere);
-        }
-        selectionGroupe2.setValue("Matieres");
-
-        ArrayList<String> groupes = readFile("src\\main\\java\\db\\groupes.txt");
-        for(String groupe : groupes){
-            selectionGroupe3.getItems().add(groupe);
-        }
-        selectionGroupe3.setValue("Groupe");
     }
 
     @FXML
@@ -161,8 +144,59 @@ public class AccueilEtudiantController implements Initializable {
         }
         return lines;
     }
+
+    public void setButtonData() {
+        ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
+        for (String salle : salles) {
+            selectionGroupe.getItems().add(salle);
+        }
+        selectionGroupe.setValue("Salle");
+
+        ArrayList<String> typeDeCours = readFile("src\\main\\java\\db\\typeDeCours.txt");
+        for (String type : typeDeCours) {
+            selectionGroupe1.getItems().add(type);
+        }
+        selectionGroupe1.setValue("Type de cours");
+
+        ArrayList<String> matieres = readFile("src\\main\\java\\db\\matieres.txt");
+        for (String matiere : matieres) {
+            selectionGroupe2.getItems().add(matiere);
+        }
+        selectionGroupe2.setValue("Matieres");
+
+        ArrayList<String> groupes = readFile("src\\main\\java\\db\\groupes.txt");
+        for (String groupe : groupes) {
+            selectionGroupe3.getItems().add(groupe);
+        }
+        selectionGroupe3.setValue("Groupe");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //initData("Nom Etudiant", LocalDate.now());
+        setButtonData();
+
+        ICSParsing icsParsing = new ICSParsing();
+        CreneauController creneauController = new CreneauController();
+        Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
+        creneauController.setCours(icsParsing.getAllCours(calendar));
+        ArrayList<Creneau> cours = creneauController.getCours();
+
+        Map<String, Integer> heureDebutIndexMap = new HashMap<>();
+        heureDebutIndexMap.put("08:30", 2);
+        heureDebutIndexMap.put("10:00", 5);
+        heureDebutIndexMap.put("11:30", 8);
+        heureDebutIndexMap.put("13:00", 11);
+        heureDebutIndexMap.put("14:30", 14);
+        heureDebutIndexMap.put("16:00", 17);
+        heureDebutIndexMap.put("17:30", 20);
+
+        for (Creneau c : cours) {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            Integer index = heureDebutIndexMap.get(sdf.format(c.getHeureDebut()));
+            if (index == null) {
+                continue;
+            }
+            grid_edt.add(c.getVbox(), 0, index);
+        }
     }
 }

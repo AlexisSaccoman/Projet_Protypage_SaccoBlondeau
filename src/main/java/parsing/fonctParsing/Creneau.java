@@ -1,5 +1,9 @@
 package parsing.fonctParsing;
 
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Creneau {
@@ -46,5 +50,18 @@ public class Creneau {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public VBox getVbox() {
+        VBox vbox = new VBox();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        Label heureDebutLabel = new Label(sdf.format(heureDebut));
+        Label heureFinLabel = new Label(sdf.format(heureFin));
+        Label salleLabel = new Label(salle);
+        Label descriptionLabel = new Label(description);
+        vbox.setPrefSize(200, 100);
+        vbox.setStyle("-fx-background-color: lightblue;");
+        vbox.getChildren().addAll(heureDebutLabel, heureFinLabel, salleLabel, descriptionLabel);
+        return vbox;
     }
 }

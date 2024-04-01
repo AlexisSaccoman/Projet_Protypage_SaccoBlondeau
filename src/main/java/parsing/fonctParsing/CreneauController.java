@@ -1,10 +1,11 @@
 package parsing.fonctParsing;
 
 
+import javafx.scene.layout.VBox;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import javafx.scene.control.Label;
 
 public class CreneauController {
 
@@ -63,5 +64,17 @@ public class CreneauController {
         for (Creneau c : cours) {
             System.out.println("Cours : " + c.getDescription() + " de " + c.getHeureDebut() + " à " + c.getHeureFin() + " en salle " + c.getSalle());
         }
+    }
+
+    public ArrayList<VBox> afficherEmploiDuTempsVBox(ArrayList<Creneau> cours) {
+        ArrayList<VBox> vboxes = new ArrayList<>();
+        VBox vbox = new VBox();
+        for (Creneau c : cours) {
+            Label label = new Label(c.getDescription());
+            vbox.getChildren().add(label);
+            vboxes.add(vbox);
+        }
+
+        return vboxes;
     }
 }
