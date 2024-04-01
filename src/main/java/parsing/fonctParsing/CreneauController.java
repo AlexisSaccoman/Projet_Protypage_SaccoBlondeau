@@ -49,6 +49,16 @@ public class CreneauController {
         }
         return filteredCours;
     }
+
+    public ArrayList<Creneau> getCoursByAnything(String type) {
+        ArrayList<Creneau> filteredCours = new ArrayList<>();
+        for (Creneau c : cours) {
+            if (c.getDescription().contains(type)) {
+                filteredCours.add(c);
+            }
+        }
+        return filteredCours;
+    }
     public void afficherEmploiDuTemps(ArrayList<Creneau> cours) {
         for (Creneau c : cours) {
             System.out.println("Cours : " + c.getDescription() + " de " + c.getHeureDebut() + " à " + c.getHeureFin() + " en salle " + c.getSalle());

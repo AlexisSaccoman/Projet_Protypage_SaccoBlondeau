@@ -43,10 +43,10 @@ public class AccueilEtudiantController implements Initializable {
     private ChoiceBox<String> selectionGroupe1;
 
     @FXML
-    private ChoiceBox<?> selectionGroupe2;
+    private ChoiceBox<String> selectionGroupe2;
 
     @FXML
-    private ChoiceBox<?> selectionGroupe3;
+    private ChoiceBox<String> selectionGroupe3;
 
     @FXML
     private ChoiceBox<?> selectionGroupe31;
@@ -70,17 +70,28 @@ public class AccueilEtudiantController implements Initializable {
         }
         selectionGroupe.setValue("Salle");
 
+        ArrayList<String> typeDeCours = readFile("src\\main\\java\\db\\typeDeCours.txt");
+        for (String type : typeDeCours) {
+            selectionGroupe1.getItems().add(type);
+        }
+        selectionGroupe1.setValue("Type de cours");
+
+        ArrayList<String> matieres = readFile("src\\main\\java\\db\\matieres.txt");
+        for (String matiere : matieres) {
+            selectionGroupe2.getItems().add(matiere);
+        }
+        selectionGroupe2.setValue("Matieres");
+
         ArrayList<String> groupes = readFile("src\\main\\java\\db\\groupes.txt");
         for(String groupe : groupes){
-            selectionGroupe1.getItems().add(groupe);
+            selectionGroupe3.getItems().add(groupe);
         }
-        selectionGroupe1.setValue("Groupe");
+        selectionGroupe3.setValue("Groupe");
     }
 
     @FXML
     void toggle_light_action(ActionEvent event) { // Changer le thème de l'interface utilisateur en live (+ appel de la fonction qui le change dans "users.txt")
         Scene scene = toggle_light.getScene();
-
         if (toggle_light.isSelected()) {
             scene.getStylesheets().clear();
             scene.getStylesheets().add(getClass().getResource("/components/accueilEtudiant/AccueilEtudiantDarkCSS.css").toExternalForm());
@@ -95,7 +106,7 @@ public class AccueilEtudiantController implements Initializable {
 
     public void changeThemeUsers(String theme) {
         // Chemin vers le fichier
-        String filePath = "C:\\Users\\Alexis\\Documents\\files\\Cours\\master\\Semestre 8\\UE Prototypage\\Projet_Protypage_SaccoBlondeau\\src\\main\\java\\db\\users.txt";
+        String filePath = "src\\main\\java\\db\\users.txt";
 
         // Créer une liste pour stocker les lignes du fichier
         ArrayList<String> lines = new ArrayList<>();
@@ -152,6 +163,6 @@ public class AccueilEtudiantController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initData();
+        //initData("Nom Etudiant", LocalDate.now());
     }
 }
