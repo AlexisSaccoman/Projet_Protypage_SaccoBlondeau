@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1070.0" stylesheets="@AccueilEtudiantCSS.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
+<AnchorPane prefHeight="800.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
     <children>
         <HBox prefHeight="800.0" prefWidth="1070.0" styleClass="box">
             <children>
@@ -127,12 +127,12 @@
                                               </Label>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="time_backward" mnemonicParsing="false" onAction="#previousWeek" text="Backward">
+                                          <Button fx:id="time_backward" mnemonicParsing="false" onAction="#previousWeek" text="&lt;">
                                              <HBox.margin>
                                                 <Insets right="5.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Button fx:id="time_forward" mnemonicParsing="false" onAction="#nextWeek" text="Forward">
+                                          <Button fx:id="time_forward" mnemonicParsing="false" onAction="#nextWeek" text="&gt;">
                                              <HBox.margin>
                                                 <Insets left="5.0" />
                                              </HBox.margin>

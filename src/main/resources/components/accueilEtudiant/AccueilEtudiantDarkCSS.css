@@ -26,6 +26,15 @@
     -fx-background-color: #282828;
 }
 
+.evaluation{
+    -fx-background-color: #4f4f4f;
+}
+.evaluation .label{
+    -fx-text-fill: #ff0000;
+    -fx-font-weight: bold;
+}
+
+
 /* -------- fx-id ------------ */
 
 
@@ -41,3 +50,15 @@
 #grid_edt{ /* grid pane on veut 13 lignes et 7 colonnes avec toutes les bordures en blanc*/
     -fx-background-color: #282828;
 }
+
+
+#creneau_edt_affichage{
+    -fx-background-color: #4f4f4f;
+}
+#creneau_edt_affichage .label{
+    -fx-text-fill: #ff8300;
+}
+
+
+
+

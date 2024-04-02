@@ -1,8 +1,10 @@
 package controllers;
 
 import controllers.divers.Personne;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import controllers.divers.DB;
 import controllers.divers.Personne;
@@ -39,6 +41,8 @@ import java.util.ArrayList;
 public class AccueilEtudiantController implements Initializable {
 
     private int weekFromNow = 0;
+
+    private String modeAffichage = "week"; // soit "week" soit "day" soit "month"
 
     @FXML
     private GridPane grid_edt;
@@ -90,6 +94,11 @@ public class AccueilEtudiantController implements Initializable {
 
     @FXML
     private Label labelDimanche;
+
+    @FXML
+    private Label edt_affichage_date;
+
+
 
     public void setUsernameAndDate(String username, LocalDate date) {
         // Utiliser les données passées pour initialiser votre interface utilisateur
@@ -195,6 +204,12 @@ public class AccueilEtudiantController implements Initializable {
         selectionGroupe3.setValue("Groupe");
     }
 
+    public void updateDateAffichage(){
+        if(this.modeAffichage.equals("week")){
+            this.edt_affichage_date.setText(labelLundi.getText().split("/")[0] + "-"+ labelLundi.getText().split("/")[1] + "-" + labelLundi.getText().split("/")[2]);
+        }
+    }
+
     public void updateDateLabel() {
         ArrayList<Label> dateLabels = new ArrayList<>(Arrays.asList(labelLundi, labelMardi, labelMercredi, labelJeudi, labelVendredi, labelSamedi, labelDimanche));
         int dayIncrement = 0;
@@ -204,6 +219,7 @@ public class AccueilEtudiantController implements Initializable {
             dateLabel.setText(currentMonday.plusDays(dayIncrement).format(formatter));
             dayIncrement++;
         }
+        updateDateAffichage();
     }
 
     @FXML
@@ -230,7 +246,7 @@ public class AccueilEtudiantController implements Initializable {
 
         // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
         LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
-        ArrayList<Creneau> cours = creneauController.getCoursByPeriod(currentMonday, currentMonday.plusDays(5)); // On regrde 5 jours dans le futur
+        ArrayList<Creneau> cours = creneauController.getCoursByPeriod(currentMonday, currentMonday.plusDays(5)); // On regarde 5 jours dans le futur
         creneauController.afficherEmploiDuTemps(cours);
 
         Map<String, Integer> heureIndexMap = new HashMap<>();
@@ -254,8 +270,13 @@ public class AccueilEtudiantController implements Initializable {
             } else if (indexHeureDebut == 0) { // Si évènement dure toute la journée, index de fin = fin de la grille
                 indexHeureFin = 24;
             }
+
             grid_edt.add(c.getVbox(), indexJour - 1, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
         }
+    }
+
+    public void ifDisplayMode(){ // permet de changer les affichages (day/week/month/)
+        // TODO
     }
 
     @Override

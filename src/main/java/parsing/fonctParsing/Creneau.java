@@ -70,8 +70,26 @@ public class Creneau {
         Label heureLabel = new Label(heureDebut + " - " + heureFin);
         Label salleLabel = new Label(salle);
         Label descriptionLabel = new Label(description);
-        vbox.setStyle("-fx-background-color: lightblue;");
         vbox.getChildren().addAll(heureLabel, salleLabel, descriptionLabel);
+        return ifCoursEvaluation(vbox);
+    }
+
+    private VBox ifCoursEvaluation(VBox vbox) {
+        if (
+                description.contains("Evaluation") ||
+                description.contains("évaluation") ||
+                description.contains("TPnoté") ||
+                description.contains("TP noté") ||
+                description.contains("CC") ||
+                description.contains("Oral") ||
+                description.contains("oral") ||
+                description.contains("soutenance") ||
+                description.contains("Soutenance")
+        ){
+            vbox.getStyleClass().add("evaluation");
+        }else{
+            vbox.setId("creneau_edt_affichage");
+        }
         return vbox;
     }
 }
