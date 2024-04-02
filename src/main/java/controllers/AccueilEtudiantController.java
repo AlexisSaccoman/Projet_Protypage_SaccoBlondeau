@@ -63,11 +63,33 @@ public class AccueilEtudiantController implements Initializable {
 
     @FXML
     private ChoiceBox<?> selectionGroupe4;
+
     @FXML
     private Label today_date;
 
     @FXML
     private ToggleButton toggle_light;
+
+    @FXML
+    private Label labelLundi;
+
+    @FXML
+    private Label labelMardi;
+
+    @FXML
+    private Label labelMercredi;
+
+    @FXML
+    private Label labelJeudi;
+
+    @FXML
+    private Label labelVendredi;
+
+    @FXML
+    private Label labelSamedi;
+
+    @FXML
+    private Label labelDimanche;
 
     public void setUsernameAndDate(String username, LocalDate date) {
         // Utiliser les données passées pour initialiser votre interface utilisateur
@@ -88,7 +110,6 @@ public class AccueilEtudiantController implements Initializable {
             changeThemeUsers("AccueilEtudiantCSS");
         }
     }
-
 
     public void changeThemeUsers(String theme) {
         // Chemin vers le fichier
@@ -174,16 +195,29 @@ public class AccueilEtudiantController implements Initializable {
         selectionGroupe3.setValue("Groupe");
     }
 
+    public void updateDateLabel() {
+        ArrayList<Label> dateLabels = new ArrayList<>(Arrays.asList(labelLundi, labelMardi, labelMercredi, labelJeudi, labelVendredi, labelSamedi, labelDimanche));
+        int dayIncrement = 0;
+        for (Label dateLabel : dateLabels) {
+            LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dateLabel.setText(currentMonday.plusDays(dayIncrement).format(formatter));
+            dayIncrement++;
+        }
+    }
+
     @FXML
     public void nextWeek() {
         weekFromNow++;
         drawnEdtOnGrid();
+        updateDateLabel();
     }
 
     @FXML
     public void previousWeek() {
         weekFromNow--;
         drawnEdtOnGrid();
+        updateDateLabel();
     }
 
     public void drawnEdtOnGrid() {
@@ -228,5 +262,6 @@ public class AccueilEtudiantController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setButtonData();
         drawnEdtOnGrid();
+        updateDateLabel();
     }
 }

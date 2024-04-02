@@ -166,41 +166,97 @@
                         <HBox prefHeight="30.0" prefWidth="770.0" style="-fx-background-color: #323232;">
                             <children>
                                 <Pane prefHeight="30.0" prefWidth="70.0" />
-                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="LUNDI" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="MARDI" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="MERCREDI" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="JEUDI" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="VENDREDI" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="SAMEDI" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="DIMANCHE" textFill="WHITE">
-                                    <font>
-                                        <Font name="System Bold" size="13.0" />
-                                    </font>
-                                </Label>
+                                <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
+                                    <Label alignment="CENTER" text="LUNDI" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <!-- Label pour la date -->
+                                    <Label fx:id="labelLundi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="10.0" />
+                                        </font>
+                                    </Label>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
+                                    <Label alignment="CENTER" text="MARDI" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <!-- Label pour la date -->
+                                    <Label fx:id="labelMardi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="10.0" />
+                                        </font>
+                                    </Label>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
+                                    <Label alignment="CENTER" text="MERCREDI" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <!-- Label pour la date -->
+                                    <Label fx:id="labelMercredi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="10.0" />
+                                        </font>
+                                    </Label>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
+                                    <Label alignment="CENTER" text="JEUDI" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <!-- Label pour la date -->
+                                    <Label fx:id="labelJeudi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="10.0" />
+                                        </font>
+                                    </Label>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
+                                    <Label alignment="CENTER" text="VENDREDI" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <!-- Label pour la date -->
+                                    <Label fx:id="labelVendredi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="10.0" />
+                                        </font>
+                                    </Label>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
+                                    <Label alignment="CENTER" text="SAMEDI" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <!-- Label pour la date -->
+                                    <Label fx:id="labelSamedi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="10.0" />
+                                        </font>
+                                    </Label>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
+                                    <Label alignment="CENTER" text="DIMANCHE" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="13.0" />
+                                        </font>
+                                    </Label>
+                                    <!-- Label pour la date -->
+                                    <Label fx:id="labelDimanche" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
+                                        <font>
+                                            <Font name="System Bold" size="10.0" />
+                                        </font>
+                                    </Label>
+                                </VBox>
                             </children>
                         </HBox>
                         <HBox prefHeight="670.0" prefWidth="900.0">
