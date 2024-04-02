@@ -1,4 +1,4 @@
-m1-ilsen-alt-gr1
-m1-ilsen-alt-gr2
-m1-ilsen-cla-gr1
-m1-ilsen-cla-gr2
+M1-ILSEN-alt-Gr1
+M1-ILSEN-alt-Gr2
+M1-ILSEN-cla-Gr1
+M1-ILSEN-cla-Gr2

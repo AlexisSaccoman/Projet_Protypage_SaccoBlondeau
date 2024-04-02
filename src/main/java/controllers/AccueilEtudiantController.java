@@ -37,6 +37,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AccueilEtudiantController implements Initializable {
 
@@ -98,6 +99,11 @@ public class AccueilEtudiantController implements Initializable {
     @FXML
     private Label edt_affichage_date;
 
+    private CreneauController creneauController = new CreneauController();
+
+    private CreneauController creneauControllerFiltered = new CreneauController();
+
+    private ArrayList<Creneau> allCours = new ArrayList<Creneau>();
 
 
     public void setUsernameAndDate(String username, LocalDate date) {
@@ -204,9 +210,9 @@ public class AccueilEtudiantController implements Initializable {
         selectionGroupe3.setValue("Groupe");
     }
 
-    public void updateDateAffichage(){
-        if(this.modeAffichage.equals("week")){
-            this.edt_affichage_date.setText(labelLundi.getText().split("/")[0] + "-"+ labelLundi.getText().split("/")[1] + "-" + labelLundi.getText().split("/")[2]);
+    public void updateDateAffichage() {
+        if (this.modeAffichage.equals("week")) {
+            this.edt_affichage_date.setText(labelLundi.getText().split("/")[0] + "-" + labelLundi.getText().split("/")[1] + "-" + labelLundi.getText().split("/")[2]);
         }
     }
 
@@ -225,24 +231,88 @@ public class AccueilEtudiantController implements Initializable {
     @FXML
     public void nextWeek() {
         weekFromNow++;
-        drawnEdtOnGrid();
+        drawnEdtOnGrid(creneauController);
         updateDateLabel();
     }
 
     @FXML
     public void previousWeek() {
         weekFromNow--;
-        drawnEdtOnGrid();
+        drawnEdtOnGrid(creneauController);
         updateDateLabel();
     }
 
-    public void drawnEdtOnGrid() {
-        grid_edt.getChildren().clear(); // On efface tout ce qu'il y avait dans la grid
+    public void filerBy() {
+        // TODO MAIS TROP DUR
+//        final int[] currentFiltreAppliques = {0};
+//        final int[] previousFiltreAppliques = {0};
+//        selectionGroupe.setOnAction(event -> {
+//            currentFiltreAppliques[0] += 1;
+//            if (currentFiltreAppliques[0] == 0) {
+//                creneauController.setCours(allCours);
+//                creneauControllerFiltered.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
+//                drawnEdtOnGrid(creneauControllerFiltered);
+//                currentFiltreAppliques[0] = 1;
+//            } else {
+//                if(currentFiltreAppliques[0] == previousFiltreAppliques[0]) {
+//                    creneauControllerFiltered.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
+//                    drawnEdtOnGrid(creneauControllerFiltered);
+//                } else {
+//                   creneauControllerFiltered.setCours(creneauControllerFiltered.getCoursBySalle(selectionGroupe.getValue()));
+//                    drawnEdtOnGrid(creneauControllerFiltered);
+//                }
+//            }
+//            previousFiltreAppliques[0] = currentFiltreAppliques[0];;
+//        });
 
-        ICSParsing icsParsing = new ICSParsing();
-        CreneauController creneauController = new CreneauController();
-        Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
-        creneauController.setCours(icsParsing.getAllCours(calendar));
+        selectionGroupe.setOnAction(event -> {
+            selectionGroupe1.setValue("Type de cours"); // Remet les autres filtres à leur valeur par défaut
+            selectionGroupe2.setValue("Matieres");
+            selectionGroupe3.setValue("Groupe");
+            creneauController.setCours(allCours);
+            creneauController.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
+            drawnEdtOnGrid(creneauController);
+        });
+
+        selectionGroupe1.setOnAction(event -> {
+            selectionGroupe.setValue("Salle");
+            selectionGroupe2.setValue("Matieres");
+            selectionGroupe3.setValue("Groupe");
+            creneauController.setCours(allCours);
+            creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe1.getValue()));
+            drawnEdtOnGrid(creneauController);
+        });
+
+        selectionGroupe2.setOnAction(event -> {
+            selectionGroupe.setValue("Salle");
+            selectionGroupe1.setValue("Type de cours");
+            selectionGroupe3.setValue("Groupe");
+            creneauController.setCours(allCours);
+            creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe2.getValue()));
+            drawnEdtOnGrid(creneauController);
+        });
+
+        selectionGroupe3.setOnAction(event -> {
+            selectionGroupe.setValue("Salle");
+            selectionGroupe1.setValue("Type de cours");
+            selectionGroupe2.setValue("Matieres");
+            creneauController.setCours(allCours);
+            creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe3.getValue()));
+            drawnEdtOnGrid(creneauController);
+        });
+    }
+
+    public void resetFilters() {
+        selectionGroupe.setValue("Salle");
+        selectionGroupe1.setValue("Type de cours");
+        selectionGroupe2.setValue("Matieres");
+        selectionGroupe3.setValue("Groupe");
+        creneauController.setCours(allCours);
+        drawnEdtOnGrid(creneauController);
+    }
+
+    public void drawnEdtOnGrid(CreneauController creneauController) {
+        grid_edt.getChildren().clear(); // On efface tout ce qu'il y avait dans la grid
 
         // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
         LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
@@ -275,14 +345,21 @@ public class AccueilEtudiantController implements Initializable {
         }
     }
 
-    public void ifDisplayMode(){ // permet de changer les affichages (day/week/month/)
+    public void ifDisplayMode() { // permet de changer les affichages (day/week/month/)
         // TODO
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ICSParsing icsParsing = new ICSParsing();
+        Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
+        allCours = icsParsing.getAllCours(calendar);
+        creneauController.setCours(allCours);
+
+
         setButtonData();
-        drawnEdtOnGrid();
+        drawnEdtOnGrid(creneauController);
         updateDateLabel();
+        filerBy();
     }
 }

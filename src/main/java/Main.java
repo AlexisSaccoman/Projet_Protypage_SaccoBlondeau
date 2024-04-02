@@ -25,6 +25,8 @@ public class Main extends Application {
         creneauController.setCours(icsParsing.getAllCours(calendar));
 
         System.out.println("Cours : " + creneauController.getCours().size());
+        //creneauController.afficherEmploiDuTemps(creneauController.getCours());
+
         // ArrayList<Creneau> coursAujourdhui = creneauController.getCoursByDay("2024-03-14");
         // creneauController.afficherEmploiDuTemps(coursAujourdhui);
 
@@ -33,6 +35,9 @@ public class Main extends Application {
 
         //ArrayList<Creneau> coursSalle = creneauController.getCoursBySalle("C 137");
         //creneauController.afficherEmploiDuTemps(coursSalle);
+
+        ArrayList<Creneau> groupe = creneauController.getCoursByAnything("M1-ILSEN-cla-Gr2");
+        creneauController.afficherEmploiDuTemps(groupe);
 
         launch(args);
     }
