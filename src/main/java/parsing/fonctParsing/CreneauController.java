@@ -23,11 +23,10 @@ public class CreneauController {
     }
 
     // day format : yyyy-MM-dd
-    public ArrayList<Creneau> getCoursByDay(String day) {
+    public ArrayList<Creneau> getCoursByDay(LocalDate day) {
         ArrayList<Creneau> filteredCours = new ArrayList<>();
-        LocalDate date = LocalDate.of(2024, 3, 14);
         for (Creneau c : cours) {
-            if (c.getHeureDebut().equals(date)) {
+            if (c.getJour().equals(day)) {
                 filteredCours.add(c);
             }
         }
@@ -38,7 +37,7 @@ public class CreneauController {
         ArrayList<Creneau> filteredCours = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (Creneau c : cours) {
-            if (c.getJourDebut().isAfter(debut)) {
+            if (c.getJour().isAfter(debut)) {
                 filteredCours.add(c);
             }
         }

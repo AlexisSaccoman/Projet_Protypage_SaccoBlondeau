@@ -181,27 +181,28 @@ public class AccueilEtudiantController implements Initializable {
         Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
         creneauController.setCours(icsParsing.getAllCours(calendar));
         ArrayList<Creneau> cours = creneauController.getCours();
-        cours = creneauController.getCoursByDay("2024-03-14");
+        cours = creneauController.getCoursByDay(LocalDate.now());
+        System.out.println("LocalDate now : " + LocalDate.now());
 
         Map<String, Integer> heureIndexMap = new HashMap<>();
         heureIndexMap.put("08:30", 1);
         heureIndexMap.put("10:00", 5);
-        heureIndexMap.put("11:30", 8);
-        heureIndexMap.put("13:00", 11);
-        heureIndexMap.put("14:30", 14);
-        heureIndexMap.put("16:00", 17);
-        heureIndexMap.put("17:30", 20);
+        heureIndexMap.put("11:30", 7);
+        heureIndexMap.put("13:00", 10);
+        heureIndexMap.put("14:30", 13);
+        heureIndexMap.put("16:00", 16);
+        heureIndexMap.put("17:30", 19);
 
         for (Creneau c : cours) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
             System.out.println(c.getHeureDebut().format(formatter));
-//            Integer indexHeureDebut = heureIndexMap.get(sdf.format(c.getHeureDebut()));
-//            Integer indexHeureFin = heureIndexMap.get(sdf.format(c.getHeureFin()));
-//            if (indexHeureDebut == null || indexHeureFin == null) {
-//                continue;
-//            }
-//            System.out.println(indexHeureDebut + " " + indexHeureFin);
-//            grid_edt.add(c.getVbox(), 0, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut) - 1);
+            Integer indexHeureDebut = heureIndexMap.get(c.getHeureDebut().toString());
+            Integer indexHeureFin = heureIndexMap.get(c.getHeureFin().toString());
+            if (indexHeureDebut == null || indexHeureFin == null) {
+                continue;
+            }
+            System.out.println(indexHeureDebut + " " + indexHeureFin);
+            grid_edt.add(c.getVbox(), 0, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
         }
     }
 }

@@ -36,7 +36,7 @@ public class Main extends Application {
 
         LocalDate startDate = LocalDate.of(2024, 1, 1);
         LocalDate endDate = LocalDate.of(2024, 5, 1);
-        ArrayList<Creneau> coursSemaine = creneauController.getCoursByPeriod(startDate, endDate);
+//        ArrayList<Creneau> coursSemaine = creneauController.getCoursByPeriod(startDate, endDate);
 //        creneauController.afficherEmploiDuTemps(coursSemaine);
 
         launch(args);

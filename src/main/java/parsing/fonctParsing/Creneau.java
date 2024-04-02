@@ -13,16 +13,14 @@ public class Creneau {
 
     LocalTime heureDebut;
     LocalTime heureFin;
-    LocalDate jourDebut;
-    LocalDate jourFin;
+    LocalDate jour;
     String salle;
     String description;
 
     public Creneau(LocalDateTime jourHeureDebut, LocalDateTime jourHeureFin, String salle, String description) {
         this.heureDebut = jourHeureDebut.toLocalTime();
         this.heureFin = jourHeureFin.toLocalTime();
-        this.jourDebut = jourHeureDebut.toLocalDate();
-        this.jourFin = jourHeureFin.toLocalDate();
+        this.jour = jourHeureDebut.toLocalDate();
         this.salle = salle;
         this.description = description;
     }
@@ -43,12 +41,12 @@ public class Creneau {
         this.heureFin = heureFin;
     }
 
-    public LocalDate getJourDebut() {
-        return jourDebut;
+    public LocalDate getJour() {
+        return jour;
     }
 
-    public void setJourDebut(LocalDate jourDebut) {
-        this.jourDebut = jourDebut;
+    public void setJour(LocalDate jourDebut) {
+        this.jour = jourDebut;
     }
 
     public String getSalle() {
@@ -69,8 +67,7 @@ public class Creneau {
 
     public VBox getVbox() {
         VBox vbox = new VBox();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        Label heureLabel = new Label(sdf.format(heureDebut) + " - " + sdf.format(heureFin));
+        Label heureLabel = new Label(heureDebut + " - " + heureFin);
         Label salleLabel = new Label(salle);
         Label descriptionLabel = new Label(description);
         vbox.setStyle("-fx-background-color: lightblue;");
