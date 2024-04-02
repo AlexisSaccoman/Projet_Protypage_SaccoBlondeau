@@ -7,6 +7,8 @@ import parsing.fonctParsing.Creneau;
 
 
 import java.io.FileInputStream;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +65,7 @@ public class ICSParsing{
         for (VEvent event : events) {
             String location = event.getLocation() == null ? "null" : event.getLocation().getValue();
             String description = event.getDescription() == null ? "null" : event.getDescription().getValue();
-            cours.add(new Creneau(event.getStartDate().getDate(), event.getEndDate().getDate(), location, description));
+            cours.add(new Creneau(event.getStartDate().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), event.getEndDate().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), location, description));
         }
         return cours;
     }

@@ -24,6 +24,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import java.io.BufferedReader;
@@ -183,7 +184,7 @@ public class AccueilEtudiantController implements Initializable {
         cours = creneauController.getCoursByDay("2024-03-14");
 
         Map<String, Integer> heureIndexMap = new HashMap<>();
-        heureIndexMap.put("08:30", 0);
+        heureIndexMap.put("08:30", 1);
         heureIndexMap.put("10:00", 5);
         heureIndexMap.put("11:30", 8);
         heureIndexMap.put("13:00", 11);
@@ -192,14 +193,15 @@ public class AccueilEtudiantController implements Initializable {
         heureIndexMap.put("17:30", 20);
 
         for (Creneau c : cours) {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            Integer indexHeureDebut = heureIndexMap.get(sdf.format(c.getHeureDebut()));
-            Integer indexHeureFin = heureIndexMap.get(sdf.format(c.getHeureFin()));
-            if (indexHeureDebut == null || indexHeureFin == null) {
-                continue;
-            }
-            System.out.println(indexHeureDebut + " " + indexHeureFin);
-            grid_edt.add(c.getVbox(), 0, indexHeureDebut, 1, indexHeureFin - indexHeureDebut);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            System.out.println(c.getHeureDebut().format(formatter));
+//            Integer indexHeureDebut = heureIndexMap.get(sdf.format(c.getHeureDebut()));
+//            Integer indexHeureFin = heureIndexMap.get(sdf.format(c.getHeureFin()));
+//            if (indexHeureDebut == null || indexHeureFin == null) {
+//                continue;
+//            }
+//            System.out.println(indexHeureDebut + " " + indexHeureFin);
+//            grid_edt.add(c.getVbox(), 0, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut) - 1);
         }
     }
 }

@@ -127,12 +127,12 @@
                                               </Label>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Button fx:id="time_backward" mnemonicParsing="false" onAction="#backward" text="Backward">
+                                          <Button fx:id="time_backward" mnemonicParsing="false" text="Backward">
                                              <HBox.margin>
                                                 <Insets right="5.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Button fx:id="time_forward" mnemonicParsing="false" onAction="#forward" text="Forward">
+                                          <Button fx:id="time_forward" mnemonicParsing="false" text="Forward">
                                              <HBox.margin>
                                                 <Insets left="5.0" />
                                              </HBox.margin>

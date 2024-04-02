@@ -4,36 +4,51 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Creneau {
 
-    Date heureDebut;
-    Date heureFin;
+    LocalTime heureDebut;
+    LocalTime heureFin;
+    LocalDate jourDebut;
+    LocalDate jourFin;
     String salle;
     String description;
 
-    public Creneau(Date heureDebut, Date heureFin, String salle, String description) {
-        this.heureDebut = heureDebut;
-        this.heureFin = heureFin;
+    public Creneau(LocalDateTime jourHeureDebut, LocalDateTime jourHeureFin, String salle, String description) {
+        this.heureDebut = jourHeureDebut.toLocalTime();
+        this.heureFin = jourHeureFin.toLocalTime();
+        this.jourDebut = jourHeureDebut.toLocalDate();
+        this.jourFin = jourHeureFin.toLocalDate();
         this.salle = salle;
         this.description = description;
     }
 
-    public Date getHeureDebut() {
+    public LocalTime getHeureDebut() {
         return heureDebut;
     }
 
-    public void setHeureDebut(Date heureDebut) {
+    public void setHeureDebut(LocalTime heureDebut) {
         this.heureDebut = heureDebut;
     }
 
-    public Date getHeureFin() {
+    public LocalTime getHeureFin() {
         return heureFin;
     }
 
-    public void setHeureFin(Date heureFin) {
+    public void setHeureFin(LocalTime heureFin) {
         this.heureFin = heureFin;
+    }
+
+    public LocalDate getJourDebut() {
+        return jourDebut;
+    }
+
+    public void setJourDebut(LocalDate jourDebut) {
+        this.jourDebut = jourDebut;
     }
 
     public String getSalle() {

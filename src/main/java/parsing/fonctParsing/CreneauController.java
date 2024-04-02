@@ -4,7 +4,10 @@ package parsing.fonctParsing;
 import javafx.scene.layout.VBox;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javafx.scene.control.Label;
 
 public class CreneauController {
@@ -22,9 +25,20 @@ public class CreneauController {
     // day format : yyyy-MM-dd
     public ArrayList<Creneau> getCoursByDay(String day) {
         ArrayList<Creneau> filteredCours = new ArrayList<>();
+        LocalDate date = LocalDate.of(2024, 3, 14);
+        for (Creneau c : cours) {
+            if (c.getHeureDebut().equals(date)) {
+                filteredCours.add(c);
+            }
+        }
+        return filteredCours;
+    }
+
+    public ArrayList<Creneau> getCoursByPeriod(LocalDate debut, LocalDate fin) {
+        ArrayList<Creneau> filteredCours = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (Creneau c : cours) {
-            if (sdf.format(c.getHeureDebut()).equals(day)) {
+            if (c.getJourDebut().isAfter(debut)) {
                 filteredCours.add(c);
             }
         }

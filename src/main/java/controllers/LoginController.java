@@ -42,7 +42,7 @@ public class LoginController {
     void connexion(ActionEvent event) {
 
         LocalDate currentDate = LocalDate.now();
-
+        System.out.println("Local date : " + currentDate);
         // on récupère les données des champs login et password
         Personne p = db.verify(login.getText(), password.getText());
 
