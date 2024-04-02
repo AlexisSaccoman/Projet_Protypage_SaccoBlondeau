@@ -8,6 +8,7 @@ import controllers.divers.DB;
 import controllers.divers.Personne;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 
 public class AccueilEtudiantController implements Initializable {
 
-    DB dbController = new DB();
+    private int weekFromNow = 0;
 
     @FXML
     private GridPane grid_edt;
@@ -173,17 +174,29 @@ public class AccueilEtudiantController implements Initializable {
         selectionGroupe3.setValue("Groupe");
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setButtonData();
+    @FXML
+    public void nextWeek() {
+        weekFromNow++;
+        drawnEdtOnGrid();
+    }
+
+    @FXML
+    public void previousWeek() {
+        weekFromNow--;
+        drawnEdtOnGrid();
+    }
+
+    public void drawnEdtOnGrid() {
+        grid_edt.getChildren().clear(); // On efface tout ce qu'il y avait dans la grid
 
         ICSParsing icsParsing = new ICSParsing();
         CreneauController creneauController = new CreneauController();
         Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
         creneauController.setCours(icsParsing.getAllCours(calendar));
 
-        // Récupère le Lundi par rapport au jour actuel, et regarde 5 jours plus tard (1 semaine)
-        ArrayList<Creneau> cours = creneauController.getCoursByPeriod(LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().plusDays(5));
+        // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
+        LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
+        ArrayList<Creneau> cours = creneauController.getCoursByPeriod(currentMonday, currentMonday.plusDays(5)); // On regrde 5 jours dans le futur
         creneauController.afficherEmploiDuTemps(cours);
 
         Map<String, Integer> heureIndexMap = new HashMap<>();
@@ -209,5 +222,11 @@ public class AccueilEtudiantController implements Initializable {
             }
             grid_edt.add(c.getVbox(), indexJour - 1, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setButtonData();
+        drawnEdtOnGrid();
     }
 }
