@@ -60,5 +60,13 @@
 }
 
 
+.tooltip {
+    -fx-background-color: black;
+}
+.tooltip .label {
+    -fx-text-fill: white;
+}
+
+
 
 

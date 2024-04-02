@@ -65,6 +65,11 @@ public class Creneau {
         this.description = description;
     }
 
+    public String getFull(){
+        return heureDebut + " - " + heureFin + "\n salle : " + salle + "\n cours : " + description;
+    }
+
+
     public VBox getVbox() {
         VBox vbox = new VBox();
         Label heureLabel = new Label(heureDebut + " - " + heureFin);
