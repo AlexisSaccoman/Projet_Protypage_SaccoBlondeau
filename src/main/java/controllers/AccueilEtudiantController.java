@@ -23,6 +23,7 @@ import parsing.fonctParsing.CreneauController;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -180,11 +181,13 @@ public class AccueilEtudiantController implements Initializable {
         CreneauController creneauController = new CreneauController();
         Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
         creneauController.setCours(icsParsing.getAllCours(calendar));
-        ArrayList<Creneau> cours = creneauController.getCours();
-        cours = creneauController.getCoursByDay(LocalDate.now());
-        System.out.println("LocalDate now : " + LocalDate.now());
+
+        // Récupère le Lundi par rapport au jour actuel, et regarde 5 jours plus tard (1 semaine)
+        ArrayList<Creneau> cours = creneauController.getCoursByPeriod(LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().plusDays(5));
+        creneauController.afficherEmploiDuTemps(cours);
 
         Map<String, Integer> heureIndexMap = new HashMap<>();
+        heureIndexMap.put("02:00", 0); // Pour les évènements de toute une journée, heure début et de fin = 02:00
         heureIndexMap.put("08:30", 1);
         heureIndexMap.put("10:00", 5);
         heureIndexMap.put("11:30", 7);
@@ -192,17 +195,19 @@ public class AccueilEtudiantController implements Initializable {
         heureIndexMap.put("14:30", 13);
         heureIndexMap.put("16:00", 16);
         heureIndexMap.put("17:30", 19);
+        heureIndexMap.put("19:00", 22);
 
         for (Creneau c : cours) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-            System.out.println(c.getHeureDebut().format(formatter));
             Integer indexHeureDebut = heureIndexMap.get(c.getHeureDebut().toString());
             Integer indexHeureFin = heureIndexMap.get(c.getHeureFin().toString());
+            Integer indexJour = c.getJour().getDayOfWeek().getValue();
+            System.out.println(c.getJour());
             if (indexHeureDebut == null || indexHeureFin == null) {
                 continue;
+            } else if (indexHeureDebut == 0) { // Si évènement dure toute la journée, index de fin = fin de la grille
+                indexHeureFin = 24;
             }
-            System.out.println(indexHeureDebut + " " + indexHeureFin);
-            grid_edt.add(c.getVbox(), 0, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
+            grid_edt.add(c.getVbox(), indexJour - 1, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
         }
     }
 }

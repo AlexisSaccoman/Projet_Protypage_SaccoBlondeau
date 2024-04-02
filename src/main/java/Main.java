@@ -9,6 +9,7 @@ import parsing.fonctParsing.Creneau;
 import parsing.fonctParsing.CreneauController;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,12 +33,6 @@ public class Main extends Application {
 
         //ArrayList<Creneau> coursSalle = creneauController.getCoursBySalle("C 137");
         //creneauController.afficherEmploiDuTemps(coursSalle);
-
-
-        LocalDate startDate = LocalDate.of(2024, 1, 1);
-        LocalDate endDate = LocalDate.of(2024, 5, 1);
-//        ArrayList<Creneau> coursSemaine = creneauController.getCoursByPeriod(startDate, endDate);
-//        creneauController.afficherEmploiDuTemps(coursSemaine);
 
         launch(args);
     }

@@ -35,9 +35,9 @@ public class CreneauController {
 
     public ArrayList<Creneau> getCoursByPeriod(LocalDate debut, LocalDate fin) {
         ArrayList<Creneau> filteredCours = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         for (Creneau c : cours) {
-            if (c.getJour().isAfter(debut)) {
+            if ((c.getJour().isEqual(debut) || c.getJour().isAfter(debut)) && (c.getJour().isBefore(fin) || c.getJour().isEqual(fin))) {
                 filteredCours.add(c);
             }
         }
@@ -75,7 +75,7 @@ public class CreneauController {
     }
     public void afficherEmploiDuTemps(ArrayList<Creneau> cours) {
         for (Creneau c : cours) {
-            System.out.println("Cours : " + c.getDescription() + " de " + c.getHeureDebut() + " à " + c.getHeureFin() + " en salle " + c.getSalle());
+            System.out.println("Cours : " + c.getDescription() + " le " + c.getJour() + " de " + c.getHeureDebut() + " à " + c.getHeureFin() + " en salle " + c.getSalle());
         }
     }
 
