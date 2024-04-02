@@ -10,7 +10,10 @@ import controllers.divers.DB;
 import controllers.divers.Personne;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -20,7 +23,6 @@ import parsing.ICSParsing;
 import parsing.fonctParsing.Creneau;
 import parsing.fonctParsing.CreneauController;
 
-import java.awt.event.MouseEvent;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
@@ -96,10 +98,6 @@ public class AccueilEtudiantController implements Initializable {
     @FXML
     private Label edt_affichage_date;
 
-    @FXML
-    private VBox evaluation;
-    @FXML
-    private VBox creneau_edt_affichage;
 
 
     public void setUsernameAndDate(String username, LocalDate date) {
@@ -272,13 +270,10 @@ public class AccueilEtudiantController implements Initializable {
             } else if (indexHeureDebut == 0) { // Si évènement dure toute la journée, index de fin = fin de la grille
                 indexHeureFin = 24;
             }
-            VBox vbox = c.getVbox();
-            Tooltip tooltip = new Tooltip(c.getFull());
-            Tooltip.install(vbox, tooltip);
-            grid_edt.add(vbox, indexJour - 1, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
+
+            grid_edt.add(c.getVbox(), indexJour - 1, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
         }
     }
-
 
     public void ifDisplayMode(){ // permet de changer les affichages (day/week/month/)
         // TODO

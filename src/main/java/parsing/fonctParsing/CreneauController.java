@@ -57,8 +57,10 @@ public class CreneauController {
     public ArrayList<Creneau> getCoursBySalle(String salle) {
         ArrayList<Creneau> filteredCours = new ArrayList<>();
         for (Creneau c : cours) {
-            if (c.getSalle().contains(salle)) {
-                filteredCours.add(c);
+            if (c.getSalle() != null) {
+                if (c.getSalle().contains(salle)) {
+                    filteredCours.add(c);
+                }
             }
         }
         return filteredCours;
