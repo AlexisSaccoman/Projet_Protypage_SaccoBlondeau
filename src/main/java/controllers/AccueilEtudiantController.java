@@ -279,38 +279,26 @@ public class AccueilEtudiantController implements Initializable {
 //            }
 //            previousFiltreAppliques[0] = currentFiltreAppliques[0];;
 //        });
-
+        // Salle
         selectionGroupe.setOnAction(event -> {
-            selectionGroupe1.setValue("Type de cours"); // Remet les autres filtres à leur valeur par défaut
-            selectionGroupe2.setValue("Matieres");
-            selectionGroupe3.setValue("Groupe");
             creneauController.setCours(allCours);
             creneauController.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
             drawnEdtOnGrid(creneauController);
         });
-
+        // Type de cours
         selectionGroupe1.setOnAction(event -> {
-            selectionGroupe.setValue("Salle");
-            selectionGroupe2.setValue("Matieres");
-            selectionGroupe3.setValue("Groupe");
             creneauController.setCours(allCours);
             creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe1.getValue()));
             drawnEdtOnGrid(creneauController);
         });
-
+        // Matieres
         selectionGroupe2.setOnAction(event -> {
-            selectionGroupe.setValue("Salle");
-            selectionGroupe1.setValue("Type de cours");
-            selectionGroupe3.setValue("Groupe");
             creneauController.setCours(allCours);
             creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe2.getValue()));
             drawnEdtOnGrid(creneauController);
         });
-
+        // Groupe
         selectionGroupe3.setOnAction(event -> {
-            selectionGroupe.setValue("Salle");
-            selectionGroupe1.setValue("Type de cours");
-            selectionGroupe2.setValue("Matieres");
             creneauController.setCours(allCours);
             creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe3.getValue()));
             drawnEdtOnGrid(creneauController);
