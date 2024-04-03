@@ -16,6 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane prefHeight="800.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
     <children>
@@ -78,7 +80,7 @@
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
                                         <Label alignment="CENTER" text="DATE"/>
-                                        <DatePicker>
+                                        <DatePicker fx:id="ajouterEvenement_date">
                                             <HBox.margin>
                                                 <Insets left="10.0"/>
                                             </HBox.margin>
@@ -86,9 +88,78 @@
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
+                                    <ChoiceBox fx:id="ajouterEvenement_heureDebut" value="Heure début"
+                                               prefWidth="150.0" styleClass="button">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="08:00"/>
+                                                <String fx:value="08:30"/>
+                                                <String fx:value="09:00"/>
+                                                <String fx:value="09:30"/>
+                                                <String fx:value="10:00"/>
+                                                <String fx:value="10:30"/>
+                                                <String fx:value="11:00"/>
+                                                <String fx:value="11:30"/>
+                                                <String fx:value="12:00"/>
+                                                <String fx:value="12:30"/>
+                                                <String fx:value="13:00"/>
+                                                <String fx:value="13:30"/>
+                                                <String fx:value="14:00"/>
+                                                <String fx:value="14:30"/>
+                                                <String fx:value="15:00"/>
+                                                <String fx:value="15:30"/>
+                                                <String fx:value="16:00"/>
+                                                <String fx:value="16:30"/>
+                                                <String fx:value="17:00"/>
+                                                <String fx:value="17:30"/>
+                                                <String fx:value="18:00"/>
+                                                <String fx:value="18:30"/>
+                                                <String fx:value="19:00"/>
+                                            </FXCollections>
+                                        </items>
+                                        <HBox.margin>
+                                            <Insets left="10.0"/>
+                                        </HBox.margin>
+                                    </ChoiceBox>
+                                    <ChoiceBox fx:id="ajouterEvenement_heureFin" value="Heure fin"
+                                               prefWidth="150.0" styleClass="button">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="08:00"/>
+                                                <String fx:value="08:30"/>
+                                                <String fx:value="09:00"/>
+                                                <String fx:value="09:30"/>
+                                                <String fx:value="10:00"/>
+                                                <String fx:value="10:30"/>
+                                                <String fx:value="11:00"/>
+                                                <String fx:value="11:30"/>
+                                                <String fx:value="12:00"/>
+                                                <String fx:value="12:30"/>
+                                                <String fx:value="13:00"/>
+                                                <String fx:value="13:30"/>
+                                                <String fx:value="14:00"/>
+                                                <String fx:value="14:30"/>
+                                                <String fx:value="15:00"/>
+                                                <String fx:value="15:30"/>
+                                                <String fx:value="16:00"/>
+                                                <String fx:value="16:30"/>
+                                                <String fx:value="17:00"/>
+                                                <String fx:value="17:30"/>
+                                                <String fx:value="18:00"/>
+                                                <String fx:value="18:30"/>
+                                                <String fx:value="19:00"/>
+                                            </FXCollections>
+                                        </items>
+                                        <HBox.margin>
+                                            <Insets left="10.0"/>
+                                        </HBox.margin>
+                                    </ChoiceBox>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
                                         <Label alignment="CENTER" text="COULEUR"/>
-                                        <ChoiceBox prefWidth="150.0" styleClass="button">
+                                        <ChoiceBox fx:id="ajouterEvenement_couleur" prefWidth="150.0"
+                                                   styleClass="button">
                                             <HBox.margin>
                                                 <Insets left="10.0"/>
                                             </HBox.margin>
@@ -98,16 +169,25 @@
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
                                         <Label alignment="CENTER" text="INTITULE"/>
-                                        <TextField>
+                                        <TextField fx:id="ajouterEvenement_intitule">
                                             <HBox.margin>
                                                 <Insets left="10.0"/>
                                             </HBox.margin>
                                         </TextField>
+
+                                        <Label alignment="CENTER" text="Salle"/>
+                                        <ChoiceBox fx:id="ajouterEvenement_salle" prefWidth="150.0"
+                                                   styleClass="button">
+                                            <HBox.margin>
+                                                <Insets left="10.0"/>
+                                            </HBox.margin>
+                                        </ChoiceBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
-                                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0"
+                                        <Button onAction="#ajouterEvenement" mnemonicParsing="false" prefHeight="50.0"
+                                                prefWidth="100.0"
                                                 text="AJOUTER">
                                         </Button>
                                     </children>

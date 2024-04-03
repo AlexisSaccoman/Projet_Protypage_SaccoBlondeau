@@ -25,6 +25,14 @@ public class Creneau {
         this.description = description;
     }
 
+    public Creneau(LocalTime heureDebut, LocalTime heureFin, LocalDate jour, String salle, String description) {
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
+        this.jour = jour;
+        this.salle = salle;
+        this.description = description;
+    }
+
     public LocalTime getHeureDebut() {
         return heureDebut;
     }

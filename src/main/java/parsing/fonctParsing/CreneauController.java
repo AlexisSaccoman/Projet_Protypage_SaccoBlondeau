@@ -5,6 +5,7 @@ import javafx.scene.layout.VBox;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -33,7 +34,22 @@ public class CreneauController {
         return filteredCours;
     }
 
-    public ArrayList<Creneau> getCoursByPeriod(LocalDate debut, LocalDate fin) {
+    public void addCreneau(Creneau c) {
+        cours.add(c);
+    }
+
+    public boolean isCreneauUsed(LocalTime debut, LocalTime fin, LocalDate jour) {
+        ArrayList<Creneau> filteredCours = new ArrayList<>(getCoursByDay(jour));
+
+        for (Creneau c : filteredCours) {
+            if ((c.getHeureDebut().equals(debut) || c.getHeureDebut().isAfter(debut)) && (c.getHeureFin().isBefore(fin) || c.getHeureFin().equals(fin))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<Creneau> getCoursByDayPeriod(LocalDate debut, LocalDate fin) {
         ArrayList<Creneau> filteredCours = new ArrayList<>();
 
         for (Creneau c : cours) {

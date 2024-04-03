@@ -10,10 +10,7 @@ import controllers.divers.DB;
 import controllers.divers.Personne;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,6 +25,7 @@ import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -98,6 +96,21 @@ public class AccueilEtudiantController implements Initializable {
 
     @FXML
     private Label edt_affichage_date;
+
+    @FXML
+    private DatePicker ajouterEvenement_date;
+
+    @FXML
+    private ChoiceBox<String> ajouterEvenement_heureDebut;
+
+    @FXML
+    private ChoiceBox<String> ajouterEvenement_heureFin;
+
+    @FXML
+    private ChoiceBox<String> ajouterEvenement_salle;
+
+    @FXML
+    private TextField ajouterEvenement_intitule;
 
     private CreneauController creneauController = new CreneauController();
 
@@ -188,8 +201,10 @@ public class AccueilEtudiantController implements Initializable {
         ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
         for (String salle : salles) {
             selectionGroupe.getItems().add(salle);
+            ajouterEvenement_salle.getItems().add(salle);
         }
         selectionGroupe.setValue("Salle");
+        ajouterEvenement_salle.setValue("Salle");
 
         ArrayList<String> typeDeCours = readFile("src\\main\\java\\db\\typeDeCours.txt");
         for (String type : typeDeCours) {
@@ -316,18 +331,32 @@ public class AccueilEtudiantController implements Initializable {
 
         // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
         LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
-        ArrayList<Creneau> cours = creneauController.getCoursByPeriod(currentMonday, currentMonday.plusDays(5)); // On regarde 5 jours dans le futur
+        ArrayList<Creneau> cours = creneauController.getCoursByDayPeriod(currentMonday, currentMonday.plusDays(5)); // On regarde 5 jours dans le futur
         creneauController.afficherEmploiDuTemps(cours);
 
         Map<String, Integer> heureIndexMap = new HashMap<>();
         heureIndexMap.put("02:00", 0); // Pour les évènements de toute une journée, heure début et de fin = 02:00
         heureIndexMap.put("08:30", 1);
-        heureIndexMap.put("10:00", 5);
+        heureIndexMap.put("09:00", 2);
+        heureIndexMap.put("09:30", 3);
+        heureIndexMap.put("10:00", 4);
+        heureIndexMap.put("10:30", 5);
+        heureIndexMap.put("11:00", 6);
         heureIndexMap.put("11:30", 7);
+        heureIndexMap.put("12:00", 8);
+        heureIndexMap.put("12:30", 9);
         heureIndexMap.put("13:00", 10);
+        heureIndexMap.put("13:30", 11);
+        heureIndexMap.put("14:00", 12);
         heureIndexMap.put("14:30", 13);
+        heureIndexMap.put("15:00", 14);
+        heureIndexMap.put("15:30", 15);
         heureIndexMap.put("16:00", 16);
+        heureIndexMap.put("16:30", 17);
+        heureIndexMap.put("17:00", 18);
         heureIndexMap.put("17:30", 19);
+        heureIndexMap.put("18:00", 20);
+        heureIndexMap.put("18:30", 21);
         heureIndexMap.put("19:00", 22);
 
         for (Creneau c : cours) {
@@ -347,6 +376,27 @@ public class AccueilEtudiantController implements Initializable {
 
     public void ifDisplayMode() { // permet de changer les affichages (day/week/month/)
         // TODO
+    }
+
+    public void ajouterEvenement() {
+        if (ajouterEvenement_date.getValue() == null || ajouterEvenement_heureDebut.getValue() == null || ajouterEvenement_heureFin.getValue() == null || ajouterEvenement_salle.getValue() == null || ajouterEvenement_intitule.getText().equals("")) {
+            System.out.println("Veuillez remplir tous les champs");
+            return;
+        }
+
+        LocalTime heureDebut = LocalTime.parse(ajouterEvenement_heureDebut.getValue().toString());
+        LocalTime heureFin = LocalTime.parse(ajouterEvenement_heureFin.getValue().toString());
+
+        if (heureDebut.isAfter(heureFin)) {
+            System.out.println("L'heure de début doit être avant l'heure de fin");
+            return;
+        }
+        if (creneauController.isCreneauUsed(heureDebut, heureFin, ajouterEvenement_date.getValue())) {
+            System.out.println("Créneau déjà utilisé");
+        } else {
+            creneauController.addCreneau(new Creneau(heureDebut, heureFin, ajouterEvenement_date.getValue(), ajouterEvenement_salle.getValue(), ajouterEvenement_intitule.getText()));
+            drawnEdtOnGrid(creneauController);
+        }
     }
 
     @Override
