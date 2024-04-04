@@ -37,4 +37,14 @@ public class DB {
         System.out.println("Login ou mot de passe incorrect");
         return null;
     }
+
+    public String getCssPath(String role, String username){
+        // retourne le chemin du fichier css correspondant au role de l'utilisateur et à son nom
+        for(Personne p : personnes){
+            if(p.login.equals(username) && p.statut.equals(role)){
+                return p.css;
+            }
+        }
+        return "";
+    }
 }

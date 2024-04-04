@@ -1,20 +1,27 @@
 package controllers;
 
 import controllers.divers.Personne;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import controllers.divers.DB;
 import controllers.divers.Personne;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import net.fortuna.ical4j.model.Calendar;
 import parsing.ICSParsing;
 import parsing.fonctParsing.Creneau;
@@ -22,6 +29,7 @@ import parsing.fonctParsing.CreneauController;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -62,10 +70,10 @@ public class AccueilEtudiantController implements Initializable {
     private ChoiceBox<String> selectionGroupe3;
 
     @FXML
-    private ChoiceBox<?> selectionGroupe31;
+    private ChoiceBox<String> selectionGroupe31;
 
     @FXML
-    private ChoiceBox<?> selectionGroupe4;
+    private ChoiceBox<String> selectionGroupe4;
 
     @FXML
     private Label today_date;
@@ -111,6 +119,33 @@ public class AccueilEtudiantController implements Initializable {
 
     @FXML
     private TextField ajouterEvenement_intitule;
+
+    @FXML
+    private Button resetFiltersButton;
+
+    @FXML
+    private Label titreDimanche;
+
+    @FXML
+    private Label titreJeudi;
+
+    @FXML
+    private Label titreLundi;
+
+    @FXML
+    private Label titreMardi;
+
+    @FXML
+    private Label titreMercredi;
+
+    @FXML
+    private Label titreSamedi;
+
+    @FXML
+    private Label titreVendredi;
+
+    @FXML
+    private VBox horairesContainer;
 
     private CreneauController creneauController = new CreneauController();
 
@@ -223,6 +258,12 @@ public class AccueilEtudiantController implements Initializable {
             selectionGroupe3.getItems().add(groupe);
         }
         selectionGroupe3.setValue("Groupe");
+
+        // ajout des affichages sur le bouton de sélection des affichages (par défaut : week)
+        selectionGroupe4.getItems().add("Week");
+        selectionGroupe4.getItems().add("Day");
+        selectionGroupe4.getItems().add("Month");
+        selectionGroupe4.setValue("Week");
     }
 
     public void updateDateAffichage() {
@@ -303,6 +344,10 @@ public class AccueilEtudiantController implements Initializable {
             creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe3.getValue()));
             drawnEdtOnGrid(creneauController);
         });
+        //mode d'affichage
+        selectionGroupe4.setOnAction(event -> {
+            changeDisplayMode();
+        });
     }
 
     public void resetFilters() {
@@ -362,8 +407,99 @@ public class AccueilEtudiantController implements Initializable {
         }
     }
 
+    public void hideDaysExceptJeudi(){
+        titreLundi.getStyleClass().add("hidden");
+        labelLundi.getStyleClass().add("hidden");
+        titreMardi.getStyleClass().add("hidden");
+        labelMardi.getStyleClass().add("hidden");
+        titreMercredi.getStyleClass().add("hidden");
+        labelMercredi.getStyleClass().add("hidden");
+        titreVendredi.getStyleClass().add("hidden");
+        labelVendredi.getStyleClass().add("hidden");
+        titreSamedi.getStyleClass().add("hidden");
+        labelSamedi.getStyleClass().add("hidden");
+        titreDimanche.getStyleClass().add("hidden");
+        labelDimanche.getStyleClass().add("hidden");
+    }
+
+    public void hideDates(){
+        labelLundi.getStyleClass().add("hidden");
+        labelMardi.getStyleClass().add("hidden");
+        labelMercredi.getStyleClass().add("hidden");
+        labelJeudi.getStyleClass().add("hidden");
+        labelVendredi.getStyleClass().add("hidden");
+        labelSamedi.getStyleClass().add("hidden");
+        labelDimanche.getStyleClass().add("hidden");
+
+    }
+
+    public void displayDates(){
+        labelLundi.getStyleClass().remove("hidden");
+        labelMardi.getStyleClass().remove("hidden");
+        labelMercredi.getStyleClass().remove("hidden");
+        labelJeudi.getStyleClass().remove("hidden");
+        labelVendredi.getStyleClass().remove("hidden");
+        labelSamedi.getStyleClass().remove("hidden");
+        labelDimanche.getStyleClass().remove("hidden");
+    }
+
+    public void displayDays(){
+        titreLundi.getStyleClass().remove("hidden");
+        labelLundi.getStyleClass().remove("hidden");
+        titreMardi.getStyleClass().remove("hidden");
+        labelMardi.getStyleClass().remove("hidden");
+        titreMercredi.getStyleClass().remove("hidden");
+        labelMercredi.getStyleClass().remove("hidden");
+        titreJeudi.getStyleClass().remove("hidden");
+        labelJeudi.getStyleClass().remove("hidden");
+        titreVendredi.getStyleClass().remove("hidden");
+        labelVendredi.getStyleClass().remove("hidden");
+        titreSamedi.getStyleClass().remove("hidden");
+        labelSamedi.getStyleClass().remove("hidden");
+        titreDimanche.getStyleClass().remove("hidden");
+        labelDimanche.getStyleClass().remove("hidden");
+    }
+
+    public void displayHoraire(){
+        horairesContainer.getStyleClass().remove("hidden");
+    }
+
+    public void hideHoraire(){
+        horairesContainer.getStyleClass().add("hidden");
+    }
+
     public void ifDisplayMode() { // permet de changer les affichages (day/week/month/)
-        // TODO
+        System.out.println("Mode d'affichage : " + selectionGroupe4.getValue());
+        if(selectionGroupe4.getValue() == "Week"){
+            this.modeAffichage = "week";
+            displayDays();
+            displayDates();
+            displayHoraire();
+            titreJeudi.setText("JEUDI");
+            updateDateLabel();
+            filerBy();
+        } else if (selectionGroupe4.getValue() == "Day"){
+            this.modeAffichage = "day";
+            displayDates();
+            displayHoraire();
+            hideDaysExceptJeudi();
+            titreJeudi.setText("LUNDI");
+            labelJeudi.setText(String.format(LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow).toString()));
+
+            // TODO : appel de la fonction pour dessinner l'emploi du temps
+        } else if(selectionGroupe4.getValue() == "Month"){
+            this.modeAffichage = "month";
+            titreJeudi.setText("JEUDI");
+            displayDays();
+            hideDates();
+            hideHoraire();
+
+            // TODO : appel de la fonction pour dessinner l'emploi du temps
+        }
+    }
+
+    public void changeDisplayMode(){
+        ifDisplayMode();
     }
 
     public void ajouterEvenement() {
@@ -387,6 +523,65 @@ public class AccueilEtudiantController implements Initializable {
         }
     }
 
+    // gestionnaire des raccourcis clavier
+    public void handleKey(KeyEvent event) {
+        System.out.println("Touche pressée : " + event.getCode());
+        switch (event.getCode()) {
+            case RIGHT:
+                nextWeek();
+                break;
+            case LEFT:
+                previousWeek();
+                break;
+            case R:
+                resetFilters();
+                break;
+            case W:
+                selectionGroupe4.setValue("Week");
+                changeDisplayMode();
+                break;
+            case D:
+                selectionGroupe4.setValue("Day");
+                changeDisplayMode();
+                break;
+            case M:
+                selectionGroupe4.setValue("Month");
+                changeDisplayMode();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void setUntraversable(Scene scene) {
+        for (Node node : scene.getRoot().getChildrenUnmodifiable()) {
+            if (node instanceof Button) {
+                Button button = (Button) node;
+                button.setFocusTraversable(false);
+            }
+        }
+    }
+
+
+    @FXML
+    public void openMenu(ActionEvent event) { // ouvrir le menu
+
+        DB db = new DB();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/menu/MenuInterface.fxml"));
+            Parent root = loader.load();
+            MenuController controller = loader.getController();
+            controller.initData("/components/accueilEtudiant/"+db.getCssPath("etudiant", nomPrenom.getText())+".css", nomPrenom.getText(), LocalDate.now(), "etudiant");
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) grid_edt.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ICSParsing icsParsing = new ICSParsing();
@@ -394,10 +589,16 @@ public class AccueilEtudiantController implements Initializable {
         allCours = icsParsing.getAllCours(calendar);
         creneauController.setCours(allCours);
 
-
         setButtonData();
         drawnEdtOnGrid(creneauController);
         updateDateLabel();
         filerBy();
+
+        Platform.runLater(() -> {
+            // Récupérer la scène et ajouter le gestionnaire d'événements clavier
+            Scene scene = grid_edt.getScene();
+            setUntraversable(scene);
+            scene.setOnKeyPressed(this::handleKey);
+        });
     }
 }

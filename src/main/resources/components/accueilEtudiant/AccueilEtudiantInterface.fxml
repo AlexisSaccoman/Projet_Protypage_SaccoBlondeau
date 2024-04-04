@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -16,10 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<AnchorPane prefHeight="800.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
+<AnchorPane prefHeight="800.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
     <children>
         <HBox prefHeight="800.0" prefWidth="1070.0" styleClass="box">
             <children>
@@ -27,9 +26,14 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
                             <children>
+                        <Button fx:id="menuButton" mnemonicParsing="false" onAction="#openMenu" text="MENU">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
                                 <Label fx:id="today_date" text="##-##-####">
                                     <font>
-                                        <Font size="26.0"/>
+                                        <Font size="26.0" />
                                     </font>
                                 </Label>
                             </children>
@@ -38,32 +42,51 @@
                             <children>
                                 <Label prefHeight="28.0" prefWidth="150.0" text="Salles">
                                     <font>
-                                        <Font size="19.0"/>
+                                        <Font size="19.0" />
                                     </font>
                                 </Label>
-                                <ChoiceBox fx:id="selectionGroupe" prefWidth="150.0" styleClass="button"/>
+                                <ChoiceBox fx:id="selectionGroupe" prefWidth="150.0">
+                           <styleClass>
+                              <String fx:value="button" />
+                              <String fx:value="choiceList" />
+                           </styleClass></ChoiceBox>
                                 <Label prefHeight="28.0" prefWidth="150.0" text="Type de cours">
                                     <font>
-                                        <Font size="19.0"/>
+                                        <Font size="19.0" />
                                     </font>
                                 </Label>
-                                <ChoiceBox fx:id="selectionGroupe1" prefWidth="150.0" styleClass="button"/>
+                                <ChoiceBox fx:id="selectionGroupe1" prefWidth="150.0">
+                           <styleClass>
+                              <String fx:value="button" />
+                              <String fx:value="choiceList" />
+                           </styleClass></ChoiceBox>
                                 <Label prefHeight="28.0" prefWidth="150.0" text="Matières">
                                     <font>
-                                        <Font size="19.0"/>
+                                        <Font size="19.0" />
                                     </font>
                                 </Label>
-                                <ChoiceBox fx:id="selectionGroupe2" prefWidth="150.0" styleClass="button"/>
+                                <ChoiceBox fx:id="selectionGroupe2" prefWidth="150.0">
+                           <styleClass>
+                              <String fx:value="button" />
+                              <String fx:value="choiceList" />
+                           </styleClass></ChoiceBox>
                                 <Label prefHeight="28.0" prefWidth="150.0" text="Groupe">
                                     <font>
-                                        <Font size="19.0"/>
+                                        <Font size="19.0" />
                                     </font>
                                 </Label>
-                                <ChoiceBox fx:id="selectionGroupe3" prefWidth="150.0" styleClass="button"/>
-                                <Button prefHeight="28.0" prefWidth="150.0" onAction="#resetFilters" text="Reset">
+                                <ChoiceBox fx:id="selectionGroupe3" prefWidth="150.0">
+                           <styleClass>
+                              <String fx:value="button" />
+                              <String fx:value="choiceList" />
+                           </styleClass></ChoiceBox>
+                                <Button fx:id="resetFiltersButton" onAction="#resetFilters" prefHeight="28.0" prefWidth="150.0" styleClass="styleButton" text="Reset">
                                     <font>
-                                        <Font size="19.0"/>
+                                        <Font size="19.0" />
                                     </font>
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
                                 </Button>
                             </children>
                         </VBox>
@@ -71,124 +94,144 @@
                             <children>
                                 <Label alignment="CENTER" prefWidth="300.0" text="Ajouter un événement">
                                     <font>
-                                        <Font size="20.0"/>
+                                        <Font size="20.0" />
                                     </font>
                                     <padding>
-                                        <Insets bottom="10.0" top="10.0"/>
+                                        <Insets bottom="10.0" top="10.0" />
                                     </padding>
                                 </Label>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
-                                        <Label alignment="CENTER" text="DATE"/>
+                                        <Label alignment="CENTER" text="DATE" />
                                         <DatePicker fx:id="ajouterEvenement_date">
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                         </DatePicker>
                                     </children>
                                 </HBox>
-                                <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
-                                    <ChoiceBox fx:id="ajouterEvenement_heureDebut" value="Heure début"
-                                               prefWidth="150.0" styleClass="button">
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="08:00"/>
-                                                <String fx:value="08:30"/>
-                                                <String fx:value="09:00"/>
-                                                <String fx:value="09:30"/>
-                                                <String fx:value="10:00"/>
-                                                <String fx:value="10:30"/>
-                                                <String fx:value="11:00"/>
-                                                <String fx:value="11:30"/>
-                                                <String fx:value="12:00"/>
-                                                <String fx:value="12:30"/>
-                                                <String fx:value="13:00"/>
-                                                <String fx:value="13:30"/>
-                                                <String fx:value="14:00"/>
-                                                <String fx:value="14:30"/>
-                                                <String fx:value="15:00"/>
-                                                <String fx:value="15:30"/>
-                                                <String fx:value="16:00"/>
-                                                <String fx:value="16:30"/>
-                                                <String fx:value="17:00"/>
-                                                <String fx:value="17:30"/>
-                                                <String fx:value="18:00"/>
-                                                <String fx:value="18:30"/>
-                                                <String fx:value="19:00"/>
-                                            </FXCollections>
-                                        </items>
-                                        <HBox.margin>
-                                            <Insets left="10.0"/>
-                                        </HBox.margin>
-                                    </ChoiceBox>
-                                    <ChoiceBox fx:id="ajouterEvenement_heureFin" value="Heure fin"
-                                               prefWidth="150.0" styleClass="button">
-                                        <items>
-                                            <FXCollections fx:factory="observableArrayList">
-                                                <String fx:value="08:00"/>
-                                                <String fx:value="08:30"/>
-                                                <String fx:value="09:00"/>
-                                                <String fx:value="09:30"/>
-                                                <String fx:value="10:00"/>
-                                                <String fx:value="10:30"/>
-                                                <String fx:value="11:00"/>
-                                                <String fx:value="11:30"/>
-                                                <String fx:value="12:00"/>
-                                                <String fx:value="12:30"/>
-                                                <String fx:value="13:00"/>
-                                                <String fx:value="13:30"/>
-                                                <String fx:value="14:00"/>
-                                                <String fx:value="14:30"/>
-                                                <String fx:value="15:00"/>
-                                                <String fx:value="15:30"/>
-                                                <String fx:value="16:00"/>
-                                                <String fx:value="16:30"/>
-                                                <String fx:value="17:00"/>
-                                                <String fx:value="17:30"/>
-                                                <String fx:value="18:00"/>
-                                                <String fx:value="18:30"/>
-                                                <String fx:value="19:00"/>
-                                            </FXCollections>
-                                        </items>
-                                        <HBox.margin>
-                                            <Insets left="10.0"/>
-                                        </HBox.margin>
-                                    </ChoiceBox>
-                                </HBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                                       <ChoiceBox fx:id="ajouterEvenement_heureDebut" prefWidth="150.0" value="Heure début">
+                                           <items>
+                                               <FXCollections fx:factory="observableArrayList">
+                                                   <String fx:value="08:00" />
+                                                   <String fx:value="08:30" />
+                                                   <String fx:value="09:00" />
+                                                   <String fx:value="09:30" />
+                                                   <String fx:value="10:00" />
+                                                   <String fx:value="10:30" />
+                                                   <String fx:value="11:00" />
+                                                   <String fx:value="11:30" />
+                                                   <String fx:value="12:00" />
+                                                   <String fx:value="12:30" />
+                                                   <String fx:value="13:00" />
+                                                   <String fx:value="13:30" />
+                                                   <String fx:value="14:00" />
+                                                   <String fx:value="14:30" />
+                                                   <String fx:value="15:00" />
+                                                   <String fx:value="15:30" />
+                                                   <String fx:value="16:00" />
+                                                   <String fx:value="16:30" />
+                                                   <String fx:value="17:00" />
+                                                   <String fx:value="17:30" />
+                                                   <String fx:value="18:00" />
+                                                   <String fx:value="18:30" />
+                                                   <String fx:value="19:00" />
+                                               </FXCollections>
+                                           </items>
+                                 <styleClass>
+                                    <String fx:value="button" />
+                                    <String fx:value="choiceList" />
+                                 </styleClass>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="65.0" />
+                                 </VBox.margin>
+                                       </ChoiceBox>
+                                       <ChoiceBox fx:id="ajouterEvenement_heureFin" prefWidth="150.0" value="Heure fin">
+                                           <items>
+                                               <FXCollections fx:factory="observableArrayList">
+                                                   <String fx:value="08:00" />
+                                                   <String fx:value="08:30" />
+                                                   <String fx:value="09:00" />
+                                                   <String fx:value="09:30" />
+                                                   <String fx:value="10:00" />
+                                                   <String fx:value="10:30" />
+                                                   <String fx:value="11:00" />
+                                                   <String fx:value="11:30" />
+                                                   <String fx:value="12:00" />
+                                                   <String fx:value="12:30" />
+                                                   <String fx:value="13:00" />
+                                                   <String fx:value="13:30" />
+                                                   <String fx:value="14:00" />
+                                                   <String fx:value="14:30" />
+                                                   <String fx:value="15:00" />
+                                                   <String fx:value="15:30" />
+                                                   <String fx:value="16:00" />
+                                                   <String fx:value="16:30" />
+                                                   <String fx:value="17:00" />
+                                                   <String fx:value="17:30" />
+                                                   <String fx:value="18:00" />
+                                                   <String fx:value="18:30" />
+                                                   <String fx:value="19:00" />
+                                               </FXCollections>
+                                           </items>
+                                 <styleClass>
+                                    <String fx:value="button" />
+                                    <String fx:value="choiceList" />
+                                 </styleClass>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="65.0" />
+                                 </VBox.margin>
+                                       </ChoiceBox>
+                           </children>
+                        </VBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
-                                        <Label alignment="CENTER" text="COULEUR"/>
-                                        <ChoiceBox fx:id="ajouterEvenement_couleur" prefWidth="150.0"
-                                                   styleClass="button">
+                                        <Label alignment="CENTER" text="COULEUR" />
+                                        <ChoiceBox fx:id="ajouterEvenement_couleur" prefWidth="150.0">
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="button" />
+                                    <String fx:value="choiceList" />
+                                 </styleClass>
                                         </ChoiceBox>
                                     </children>
                                 </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+      
+                                                    <Label alignment="CENTER" text="SALLE">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                                        <ChoiceBox fx:id="ajouterEvenement_salle" prefWidth="150.0">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="button" />
+                                    <String fx:value="choiceList" />
+                                 </styleClass>
+                                        </ChoiceBox>
+                           </children>
+                        </HBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
-                                        <Label alignment="CENTER" text="INTITULE"/>
+                                        <Label alignment="CENTER" text="INTITULE" />
                                         <TextField fx:id="ajouterEvenement_intitule">
                                             <HBox.margin>
-                                                <Insets left="10.0"/>
+                                                <Insets left="10.0" />
                                             </HBox.margin>
                                         </TextField>
-
-                                        <Label alignment="CENTER" text="Salle"/>
-                                        <ChoiceBox fx:id="ajouterEvenement_salle" prefWidth="150.0"
-                                                   styleClass="button">
-                                            <HBox.margin>
-                                                <Insets left="10.0"/>
-                                            </HBox.margin>
-                                        </ChoiceBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
-                                        <Button onAction="#ajouterEvenement" mnemonicParsing="false" prefHeight="50.0"
-                                                prefWidth="100.0"
-                                                text="AJOUTER">
+                                        <Button mnemonicParsing="false" onAction="#ajouterEvenement" prefHeight="50.0" prefWidth="100.0" styleClass="styleButton" text="AJOUTER">
                                         </Button>
                                     </children>
                                 </HBox>
@@ -204,49 +247,48 @@
                                     <children>
                                         <VBox alignment="CENTER">
                                             <children>
-                                                <Label fx:id="edt_affichage_date" prefHeight="100.0"
-                                                       text="01-07 January  2024">
+                                                <Label fx:id="edt_affichage_date" prefHeight="100.0" text="01-07 January  2024">
                                                     <font>
-                                                        <Font size="24.0"/>
+                                                        <Font size="24.0" />
                                                     </font>
                                                 </Label>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
-                                                        <Button fx:id="time_backward" mnemonicParsing="false"
-                                                                onAction="#previousWeek" text="&lt;">
+                                                        <Button fx:id="time_backward" mnemonicParsing="false" onAction="#previousWeek" text="&lt;">
                                                             <HBox.margin>
-                                                                <Insets right="5.0"/>
+                                                                <Insets right="5.0" />
                                                             </HBox.margin>
                                                         </Button>
-                                                        <Button fx:id="time_forward" mnemonicParsing="false"
-                                                                onAction="#nextWeek" text="&gt;">
+                                                        <Button fx:id="time_forward" mnemonicParsing="false" onAction="#nextWeek" text="&gt;">
                                                             <HBox.margin>
-                                                                <Insets left="5.0"/>
+                                                                <Insets left="5.0" />
                                                             </HBox.margin>
                                                         </Button>
                                                     </children>
                                                 </HBox>
                                             </children>
                                         </VBox>
-                                        <ChoiceBox fx:id="selectionGroupe4" prefWidth="150.0" styleClass="button">
+                                        <ChoiceBox fx:id="selectionGroupe4" prefWidth="150.0">
                                             <HBox.margin>
-                                                <Insets left="20.0"/>
+                                                <Insets left="20.0" />
                                             </HBox.margin>
+                                 <styleClass>
+                                    <String fx:value="button" />
+                                    <String fx:value="choiceList" />
+                                 </styleClass>
                                         </ChoiceBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="300.0">
                                     <children>
-                                        <ToggleButton fx:id="toggle_light" mnemonicParsing="false"
-                                                      onAction="#toggle_light_action" prefHeight="25.0" prefWidth="67.0"
-                                                      text="Light">
+                                        <ToggleButton fx:id="toggle_light" mnemonicParsing="false" onAction="#toggle_light_action" prefHeight="25.0" prefWidth="67.0" text="Light">
                                             <HBox.margin>
-                                                <Insets right="10.0"/>
+                                                <Insets right="10.0" />
                                             </HBox.margin>
                                         </ToggleButton>
                                         <Label fx:id="nomPrenom" prefHeight="21.0" prefWidth="107.0" text="Jean Bond">
                                             <font>
-                                                <Font size="15.0"/>
+                                                <Font size="15.0" />
                                             </font>
                                         </Label>
                                     </children>
@@ -255,102 +297,95 @@
                         </HBox>
                         <HBox prefHeight="30.0" prefWidth="770.0" style="-fx-background-color: #323232;">
                             <children>
-                                <Pane prefHeight="30.0" prefWidth="70.0"/>
+                                <Pane prefHeight="30.0" prefWidth="70.0" />
                                 <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
-                                    <Label alignment="CENTER" text="LUNDI" textFill="WHITE">
+                                    <Label fx:id="titreLundi" alignment="CENTER" text="LUNDI" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="13.0"/>
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
                                     <!-- Label pour la date -->
-                                    <Label fx:id="labelLundi" alignment="CENTER" text="datePlaceHolder"
-                                           textFill="WHITE">
+                                    <Label fx:id="labelLundi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="10.0"/>
+                                            <Font name="System Bold" size="10.0" />
                                         </font>
                                     </Label>
                                 </VBox>
                                 <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
-                                    <Label alignment="CENTER" text="MARDI" textFill="WHITE">
+                                    <Label fx:id="titreMardi" alignment="CENTER" text="MARDI" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="13.0"/>
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
                                     <!-- Label pour la date -->
-                                    <Label fx:id="labelMardi" alignment="CENTER" text="datePlaceHolder"
-                                           textFill="WHITE">
+                                    <Label fx:id="labelMardi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="10.0"/>
+                                            <Font name="System Bold" size="10.0" />
                                         </font>
                                     </Label>
                                 </VBox>
                                 <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
-                                    <Label alignment="CENTER" text="MERCREDI" textFill="WHITE">
+                                    <Label fx:id="titreMercredi" alignment="CENTER" text="MERCREDI" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="13.0"/>
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
                                     <!-- Label pour la date -->
-                                    <Label fx:id="labelMercredi" alignment="CENTER" text="datePlaceHolder"
-                                           textFill="WHITE">
+                                    <Label fx:id="labelMercredi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="10.0"/>
+                                            <Font name="System Bold" size="10.0" />
                                         </font>
                                     </Label>
                                 </VBox>
                                 <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
-                                    <Label alignment="CENTER" text="JEUDI" textFill="WHITE">
+                                    <Label fx:id="titreJeudi" alignment="CENTER" text="JEUDI" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="13.0"/>
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
                                     <!-- Label pour la date -->
-                                    <Label fx:id="labelJeudi" alignment="CENTER" text="datePlaceHolder"
-                                           textFill="WHITE">
+                                    <Label fx:id="labelJeudi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="10.0"/>
+                                            <Font name="System Bold" size="10.0" />
                                         </font>
                                     </Label>
                                 </VBox>
                                 <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
-                                    <Label alignment="CENTER" text="VENDREDI" textFill="WHITE">
+                                    <Label fx:id="titreVendredi" alignment="CENTER" text="VENDREDI" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="13.0"/>
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
                                     <!-- Label pour la date -->
-                                    <Label fx:id="labelVendredi" alignment="CENTER" text="datePlaceHolder"
-                                           textFill="WHITE">
+                                    <Label fx:id="labelVendredi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="10.0"/>
+                                            <Font name="System Bold" size="10.0" />
                                         </font>
                                     </Label>
                                 </VBox>
                                 <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
-                                    <Label alignment="CENTER" text="SAMEDI" textFill="WHITE">
+                                    <Label fx:id="titreSamedi" alignment="CENTER" text="SAMEDI" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="13.0"/>
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
                                     <!-- Label pour la date -->
-                                    <Label fx:id="labelSamedi" alignment="CENTER" text="datePlaceHolder"
-                                           textFill="WHITE">
+                                    <Label fx:id="labelSamedi" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="10.0"/>
+                                            <Font name="System Bold" size="10.0" />
                                         </font>
                                     </Label>
                                 </VBox>
                                 <VBox alignment="CENTER" prefHeight="30.0" prefWidth="100.0">
-                                    <Label alignment="CENTER" text="DIMANCHE" textFill="WHITE">
+                                    <Label fx:id="titreDimanche" alignment="CENTER" text="DIMANCHE" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="13.0"/>
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
                                     <!-- Label pour la date -->
-                                    <Label fx:id="labelDimanche" alignment="CENTER" text="datePlaceHolder"
-                                           textFill="WHITE">
+                                    <Label fx:id="labelDimanche" alignment="CENTER" text="datePlaceHolder" textFill="WHITE">
                                         <font>
-                                            <Font name="System Bold" size="10.0"/>
+                                            <Font name="System Bold" size="10.0" />
                                         </font>
                                     </Label>
                                 </VBox>
@@ -358,126 +393,112 @@
                         </HBox>
                         <HBox prefHeight="670.0" prefWidth="900.0">
                             <children>
-                                <VBox prefHeight="670.0" prefWidth="70.0" style="-fx-background-color: #323232;">
+                                <VBox fx:id="horairesContainer" prefHeight="670.0" prefWidth="70.0" style="-fx-background-color: #323232;">
                                     <children>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="08:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="08:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="09:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="09:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="10:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="10:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="11:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="11:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="12:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="12:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="13:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="13:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="14:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="14:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="15:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="15:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="16:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="16:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="17:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="17:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="18:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="18:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="19:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="19:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="20:00"
-                                               textFill="WHITE">
+                                        <Label alignment="TOP_CENTER" prefHeight="60.0" prefWidth="70.0" text="20:00" textFill="WHITE">
                                             <font>
-                                                <Font name="System Bold" size="12.0"/>
+                                                <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
                                     </children>
                                 </VBox>
-                                <GridPane fx:id="grid_edt" mouseTransparent="true" prefHeight="670.0" prefWidth="700.0"
-                                          HBox.hgrow="ALWAYS">
+                                <GridPane fx:id="grid_edt" mouseTransparent="true" prefHeight="670.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                 </GridPane>
                             </children>

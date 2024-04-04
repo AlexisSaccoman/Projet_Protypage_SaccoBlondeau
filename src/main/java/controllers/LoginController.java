@@ -6,9 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -18,9 +22,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.SocketOption;
+import java.net.URL;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class LoginController {
 
@@ -34,7 +40,7 @@ public class LoginController {
     private TextField login;
 
     @FXML
-    private TextField password;
+    private PasswordField password;
 
     DB db = new DB();
 
@@ -98,5 +104,23 @@ public class LoginController {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleKeyPressed(KeyEvent event) {
+        // Vérifie si la touche pressée est la touche "Enter"
+        if (event.getCode() == KeyCode.ENTER) {
+            // Appelle la fonction connexion lorsque la touche "Enter" est pressée
+            connexion(new ActionEvent());
+        }
+    }
+
+
+    @FXML
+    public void initialize() {
+        // Ajoute un écouteur d'événements de touche au champ de texte login
+        login.setOnKeyPressed(this::handleKeyPressed);
+
+        // Ajoute un écouteur d'événements de touche au champ de texte password
+        password.setOnKeyPressed(this::handleKeyPressed);
     }
 }

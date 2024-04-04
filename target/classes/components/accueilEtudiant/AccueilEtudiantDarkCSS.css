@@ -11,7 +11,7 @@
 
 .button{
     -fx-background-color: #797979;
-    -fx-text-fill: white;
+    /*-fx-text-fill: white;*/
     -fx-border-color: #282828;
     -fx-border-width: 1;
     -fx-border-radius: 5;
@@ -34,6 +34,22 @@
     -fx-font-weight: bold;
 }
 
+/*.styleButton{
+    -fx-border-radius: 20px;
+    -fx-border-width: 1;
+    -fx-border-color: #282828;
+    -fx-background-color: #4f4f4f;
+    -fx-text-fill: white;
+}*/
+
+.choiceList .label{
+    -fx-text-fill: black;
+}
+
+.hidden{
+    -fx-opacity: 0;
+}
+
 
 /* -------- fx-id ------------ */
 
@@ -42,15 +58,13 @@
     -fx-background-color: #282828;
 }
 
-
 #today_date{
     -fx-text-fill: #ff8300;
 }
 
-#grid_edt{ /* grid pane on veut 13 lignes et 7 colonnes avec toutes les bordures en blanc*/
+#grid_edt{
     -fx-background-color: #282828;
 }
-
 
 #creneau_edt_affichage{
     -fx-background-color: #4f4f4f;
