@@ -334,25 +334,44 @@ public class AccueilEtudiantController implements Initializable {
         selectionGroupe.setOnAction(event -> {
             creneauController.setCours(allCours);
             creneauController.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
-            drawnEdtOnGrid(creneauController);
+            if (modeAffichage.equals("month")) {
+                drawGridOnEdtMonth(creneauController);
+            } else {
+                drawnEdtOnGrid(creneauController);
+            }
         });
         // Type de cours
         selectionGroupe1.setOnAction(event -> {
             creneauController.setCours(allCours);
             creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe1.getValue()));
             drawnEdtOnGrid(creneauController);
+            if (modeAffichage.equals("month")) {
+                drawGridOnEdtMonth(creneauController);
+            } else {
+                drawnEdtOnGrid(creneauController);
+            }
         });
         // Matieres
         selectionGroupe2.setOnAction(event -> {
             creneauController.setCours(allCours);
             creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe2.getValue()));
             drawnEdtOnGrid(creneauController);
+            if (modeAffichage.equals("month")) {
+                drawGridOnEdtMonth(creneauController);
+            } else {
+                drawnEdtOnGrid(creneauController);
+            }
         });
         // Groupe
         selectionGroupe3.setOnAction(event -> {
             creneauController.setCours(allCours);
             creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe3.getValue()));
             drawnEdtOnGrid(creneauController);
+            if (modeAffichage.equals("month")) {
+                drawGridOnEdtMonth(creneauController);
+            } else {
+                drawnEdtOnGrid(creneauController);
+            }
         });
         //mode d'affichage
         selectionGroupe4.setOnAction(event -> {
@@ -365,8 +384,14 @@ public class AccueilEtudiantController implements Initializable {
         selectionGroupe1.setValue("Type de cours");
         selectionGroupe2.setValue("Matieres");
         selectionGroupe3.setValue("Groupe");
+
         creneauController.setCours(allCours);
-        drawnEdtOnGrid(creneauController);
+
+        if (modeAffichage.equals("month")) {
+            drawGridOnEdtMonth(creneauController);
+        } else {
+            drawnEdtOnGrid(creneauController);
+        }
     }
 
     public void drawnEdtOnGrid(CreneauController creneauController) {
