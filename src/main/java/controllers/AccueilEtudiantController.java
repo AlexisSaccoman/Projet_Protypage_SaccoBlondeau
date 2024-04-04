@@ -30,11 +30,14 @@ import parsing.fonctParsing.CreneauController;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.sql.SQLOutput;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
 import java.io.BufferedReader;
@@ -44,6 +47,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 public class AccueilEtudiantController implements Initializable {
 
@@ -148,9 +152,6 @@ public class AccueilEtudiantController implements Initializable {
     private VBox horairesContainer;
 
     private CreneauController creneauController = new CreneauController();
-
-    private CreneauController creneauControllerFiltered = new CreneauController();
-
     private ArrayList<Creneau> allCours = new ArrayList<Creneau>();
 
 
@@ -266,35 +267,44 @@ public class AccueilEtudiantController implements Initializable {
         selectionGroupe4.setValue("Week");
     }
 
-    public void updateDateAffichage() {
-        if (this.modeAffichage.equals("week")) {
-            this.edt_affichage_date.setText(labelLundi.getText().split("/")[0] + "-" + labelLundi.getText().split("/")[1] + "-" + labelLundi.getText().split("/")[2]);
-        }
-    }
-
     public void updateDateLabel() {
         ArrayList<Label> dateLabels = new ArrayList<>(Arrays.asList(labelLundi, labelMardi, labelMercredi, labelJeudi, labelVendredi, labelSamedi, labelDimanche));
         int dayIncrement = 0;
-        for (Label dateLabel : dateLabels) {
-            LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            dateLabel.setText(currentMonday.plusDays(dayIncrement).format(formatter));
-            dayIncrement++;
+        if (this.modeAffichage.equals("week")) {
+            for (Label dateLabel : dateLabels) {
+                LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                dateLabel.setText(currentMonday.plusDays(dayIncrement).format(formatter));
+                dayIncrement++;
+            }
+        } else if (this.modeAffichage.equals("day")) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE", Locale.FRENCH); // Pour traduire le jour d'aujourd'hui en Français
+            titreJeudi.setText(formatter.format(LocalDate.now().plusDays(weekFromNow)).toUpperCase());
+
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Afficher jour en dd/MM/yyyy
+            labelJeudi.setText(formatter.format(LocalDate.now().plusDays(weekFromNow))); // Rajoute un jour et non une semaine
         }
-        updateDateAffichage();
     }
 
     @FXML
     public void nextWeek() {
         weekFromNow++;
-        drawnEdtOnGrid(creneauController);
+        if (modeAffichage.equals("month")) {
+            drawGridOnEdtMonth(creneauController);
+        } else {
+            drawnEdtOnGrid(creneauController);
+        }
         updateDateLabel();
     }
 
     @FXML
     public void previousWeek() {
         weekFromNow--;
-        drawnEdtOnGrid(creneauController);
+        if (modeAffichage.equals("month")) {
+            drawGridOnEdtMonth(creneauController);
+        } else {
+            drawnEdtOnGrid(creneauController);
+        }
         updateDateLabel();
     }
 
@@ -360,13 +370,6 @@ public class AccueilEtudiantController implements Initializable {
     }
 
     public void drawnEdtOnGrid(CreneauController creneauController) {
-        grid_edt.getChildren().clear(); // On efface tout ce qu'il y avait dans la grid
-
-        // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
-        LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
-        ArrayList<Creneau> cours = creneauController.getCoursByDayPeriod(currentMonday, currentMonday.plusDays(5)); // On regarde 5 jours dans le futur
-        creneauController.afficherEmploiDuTemps(cours);
-
         Map<String, Integer> heureIndexMap = new HashMap<>();
         heureIndexMap.put("02:00", 0); // Pour les évènements de toute une journée, heure début et de fin = 02:00
         heureIndexMap.put("08:30", 1);
@@ -392,22 +395,85 @@ public class AccueilEtudiantController implements Initializable {
         heureIndexMap.put("18:30", 21);
         heureIndexMap.put("19:00", 22);
 
+        grid_edt.getChildren().clear(); // On efface tout ce qu'il y avait dans la grid
+        ArrayList<Creneau> cours = new ArrayList<>();
+
+        // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
+        if (modeAffichage.equals("week")) {
+            LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
+            cours = creneauController.getCoursByDayPeriod(currentMonday, currentMonday.plusDays(5)); // On regarde 5 jours dans le futur
+        } else if (modeAffichage.equals("day")) {
+            LocalDate currentDay = LocalDate.now().plusDays(weekFromNow);
+            cours = creneauController.getCoursByDay(currentDay); // On regarde 5 jours dans le futur
+        }
+
+        creneauController.afficherEmploiDuTemps(cours); // TODO remove
+
         for (Creneau c : cours) {
+            // Récupère les index (verticaux) dans la hmap en fonction des horaires + index du jour (horizontal)
             Integer indexHeureDebut = heureIndexMap.get(c.getHeureDebut().toString());
             Integer indexHeureFin = heureIndexMap.get(c.getHeureFin().toString());
             Integer indexJour = c.getJour().getDayOfWeek().getValue();
-            System.out.println(c.getJour());
+
             if (indexHeureDebut == null || indexHeureFin == null) {
                 continue;
             } else if (indexHeureDebut == 0) { // Si évènement dure toute la journée, index de fin = fin de la grille
                 indexHeureFin = 24;
             }
 
-            grid_edt.add(c.getVbox(), indexJour - 1, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
+            if (modeAffichage.equals("week")) {
+                grid_edt.add(c.getVbox(), indexJour - 1, indexHeureDebut, 1, (indexHeureFin - indexHeureDebut));
+            } else if (modeAffichage.equals("day")) {
+                grid_edt.add(c.getVbox(), 0, indexHeureDebut, 7, (indexHeureFin - indexHeureDebut));
+            }
         }
     }
 
-    public void hideDaysExceptJeudi(){
+    public void drawGridOnEdtMonth(CreneauController creneauController) {
+        grid_edt.getChildren().clear(); // On efface tout ce qu'il y avait dans la grid
+
+        LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1).plusMonths(weekFromNow);
+        YearMonth currentYearMonth = YearMonth.from(LocalDate.now().plusMonths(weekFromNow));
+        int daysInCurrentMonth = currentYearMonth.lengthOfMonth(); // Récupère combien de jours dans ce mois-ci
+
+        // Initialiser la HashMap pour stocker le nombre de cours par jour
+        HashMap<LocalDate, Integer> coursParJour = new HashMap<>();
+
+        // Récupérer tous les cours du mois
+        ArrayList<Creneau> cours = creneauController.getCoursByDayPeriod(firstDayOfMonth, firstDayOfMonth.plusDays(daysInCurrentMonth - 1));
+
+        // Compter le nombre de cours pour chaque jour et stocker dans la HashMap
+        for (Creneau c : cours) {
+            LocalDate date = c.getJour();
+            coursParJour.put(date, coursParJour.getOrDefault(date, 0) + 1);
+        }
+
+        Map<Integer, Integer> departHBox = new HashMap<>();
+        departHBox.put(0, 0);
+        departHBox.put(1, 4);
+        departHBox.put(2, 8);
+        departHBox.put(3, 12);
+        departHBox.put(4, 16);
+        departHBox.put(5, 20);
+
+        // Afficher le nombre de cours pour chaque jour
+        for (Map.Entry<LocalDate, Integer> entry : coursParJour.entrySet()) {
+            LocalDate date = entry.getKey();
+            int numberOfCourses = entry.getValue();
+
+            // TODO Changer le fond pour que ça soit dynamique
+            VBox vbox = new VBox();
+            Label label = new Label(numberOfCourses + " cours");
+            Label dateLabel = new Label(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            vbox.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(Color.LIGHTBLUE, null, null)));
+            vbox.getChildren().addAll(label, dateLabel);
+
+            int departHBoxValue = departHBox.getOrDefault(date.getDayOfMonth()/7, 0);
+            grid_edt.add(vbox, date.getDayOfWeek().getValue() - 1, departHBoxValue, 1, 4);
+        }
+    }
+
+    public void hideDaysExceptJeudi() {
         titreLundi.getStyleClass().add("hidden");
         labelLundi.getStyleClass().add("hidden");
         titreMardi.getStyleClass().add("hidden");
@@ -422,7 +488,7 @@ public class AccueilEtudiantController implements Initializable {
         labelDimanche.getStyleClass().add("hidden");
     }
 
-    public void hideDates(){
+    public void hideDates() {
         labelLundi.getStyleClass().add("hidden");
         labelMardi.getStyleClass().add("hidden");
         labelMercredi.getStyleClass().add("hidden");
@@ -433,7 +499,7 @@ public class AccueilEtudiantController implements Initializable {
 
     }
 
-    public void displayDates(){
+    public void displayDates() {
         labelLundi.getStyleClass().remove("hidden");
         labelMardi.getStyleClass().remove("hidden");
         labelMercredi.getStyleClass().remove("hidden");
@@ -443,7 +509,7 @@ public class AccueilEtudiantController implements Initializable {
         labelDimanche.getStyleClass().remove("hidden");
     }
 
-    public void displayDays(){
+    public void displayDays() {
         titreLundi.getStyleClass().remove("hidden");
         labelLundi.getStyleClass().remove("hidden");
         titreMardi.getStyleClass().remove("hidden");
@@ -460,45 +526,51 @@ public class AccueilEtudiantController implements Initializable {
         labelDimanche.getStyleClass().remove("hidden");
     }
 
-    public void displayHoraire(){
+    public void displayHoraire() {
         horairesContainer.getStyleClass().remove("hidden");
     }
 
-    public void hideHoraire(){
+    public void hideHoraire() {
         horairesContainer.getStyleClass().add("hidden");
     }
 
     public void ifDisplayMode() { // permet de changer les affichages (day/week/month/)
         System.out.println("Mode d'affichage : " + selectionGroupe4.getValue());
-        if(selectionGroupe4.getValue() == "Week"){
+        if (selectionGroupe4.getValue() == "Week") {
             this.modeAffichage = "week";
             displayDays();
             displayDates();
             displayHoraire();
             titreJeudi.setText("JEUDI");
             updateDateLabel();
-            filerBy();
-        } else if (selectionGroupe4.getValue() == "Day"){
+
+            drawnEdtOnGrid(creneauController);
+
+        } else if (selectionGroupe4.getValue() == "Day") {
             this.modeAffichage = "day";
             displayDates();
             displayHoraire();
             hideDaysExceptJeudi();
-            titreJeudi.setText("LUNDI");
-            labelJeudi.setText(String.format(LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow).toString()));
 
-            // TODO : appel de la fonction pour dessinner l'emploi du temps
-        } else if(selectionGroupe4.getValue() == "Month"){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE", Locale.FRENCH); // Pour traduire le jour d'aujourd'hui en Français
+            titreJeudi.setText(formatter.format(LocalDate.now()).toUpperCase());
+
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Afficher jour en dd/MM/yyyy
+            labelJeudi.setText(formatter.format(LocalDate.now().plusDays(weekFromNow))); // Rajoute un jour et non une semaine
+
+            drawnEdtOnGrid(creneauController);
+
+        } else if (selectionGroupe4.getValue() == "Month") {
             this.modeAffichage = "month";
             titreJeudi.setText("JEUDI");
             displayDays();
             hideDates();
             hideHoraire();
-
-            // TODO : appel de la fonction pour dessinner l'emploi du temps
+            drawGridOnEdtMonth(creneauController);
         }
     }
 
-    public void changeDisplayMode(){
+    public void changeDisplayMode() {
         ifDisplayMode();
     }
 
@@ -562,7 +634,6 @@ public class AccueilEtudiantController implements Initializable {
         }
     }
 
-
     @FXML
     public void openMenu(ActionEvent event) { // ouvrir le menu
 
@@ -572,7 +643,7 @@ public class AccueilEtudiantController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/menu/MenuInterface.fxml"));
             Parent root = loader.load();
             MenuController controller = loader.getController();
-            controller.initData("/components/accueilEtudiant/"+db.getCssPath("etudiant", nomPrenom.getText())+".css", nomPrenom.getText(), LocalDate.now(), "etudiant");
+            controller.initData("/components/accueilEtudiant/" + db.getCssPath("etudiant", nomPrenom.getText()) + ".css", nomPrenom.getText(), LocalDate.now(), "etudiant");
             Scene scene = new Scene(root);
             Stage stage = (Stage) grid_edt.getScene().getWindow();
             stage.setScene(scene);

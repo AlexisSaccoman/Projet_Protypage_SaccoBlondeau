@@ -1,7 +1,7 @@
+controllers\LoginController.class
+controllers\AccueilEtudiantController.class
 Main.class
 controllers\AccueilEtudiantController$1.class
-controllers\LoginController.class
 controllers\divers\Personne.class
-controllers\AccueilEtudiantController.class
 controllers\MenuController.class
 controllers\divers\DB.class

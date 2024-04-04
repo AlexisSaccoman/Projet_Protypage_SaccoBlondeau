@@ -44,3 +44,9 @@
     -fx-font-weight: bold;
 }
 
+.hidden{
+    -fx-opacity: 0;
+}
+
+
+
