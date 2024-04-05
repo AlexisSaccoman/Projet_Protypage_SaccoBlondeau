@@ -113,6 +113,9 @@ public class AccueilEtudiantController implements Initializable {
     private DatePicker ajouterEvenement_date;
 
     @FXML
+    private ChoiceBox<String> ajouterEvenement_couleur;
+
+    @FXML
     private ChoiceBox<String> ajouterEvenement_heureDebut;
 
     @FXML
@@ -152,7 +155,10 @@ public class AccueilEtudiantController implements Initializable {
     private VBox horairesContainer;
 
     private CreneauController creneauController = new CreneauController();
+
     private ArrayList<Creneau> allCours = new ArrayList<Creneau>();
+
+    private String icsPath;
 
 
     public void setUsernameAndDate(String username, LocalDate date) {
@@ -309,27 +315,6 @@ public class AccueilEtudiantController implements Initializable {
     }
 
     public void filerBy() {
-        // TODO MAIS TROP DUR
-//        final int[] currentFiltreAppliques = {0};
-//        final int[] previousFiltreAppliques = {0};
-//        selectionGroupe.setOnAction(event -> {
-//            currentFiltreAppliques[0] += 1;
-//            if (currentFiltreAppliques[0] == 0) {
-//                creneauController.setCours(allCours);
-//                creneauControllerFiltered.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
-//                drawnEdtOnGrid(creneauControllerFiltered);
-//                currentFiltreAppliques[0] = 1;
-//            } else {
-//                if(currentFiltreAppliques[0] == previousFiltreAppliques[0]) {
-//                    creneauControllerFiltered.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
-//                    drawnEdtOnGrid(creneauControllerFiltered);
-//                } else {
-//                   creneauControllerFiltered.setCours(creneauControllerFiltered.getCoursBySalle(selectionGroupe.getValue()));
-//                    drawnEdtOnGrid(creneauControllerFiltered);
-//                }
-//            }
-//            previousFiltreAppliques[0] = currentFiltreAppliques[0];;
-//        });
         // Salle
         selectionGroupe.setOnAction(event -> {
             creneauController.setCours(allCours);
@@ -615,7 +600,7 @@ public class AccueilEtudiantController implements Initializable {
         if (creneauController.isCreneauUsed(heureDebut, heureFin, ajouterEvenement_date.getValue())) {
             System.out.println("Créneau déjà utilisé");
         } else {
-            creneauController.addCreneau(new Creneau(heureDebut, heureFin, ajouterEvenement_date.getValue(), ajouterEvenement_salle.getValue(), ajouterEvenement_intitule.getText()));
+            creneauController.addCreneau(new Creneau(heureDebut, heureFin, ajouterEvenement_date.getValue(), ajouterEvenement_salle.getValue(), ajouterEvenement_intitule.getText(), ajouterEvenement_couleur.getValue()));
             drawnEdtOnGrid(creneauController);
         }
     }

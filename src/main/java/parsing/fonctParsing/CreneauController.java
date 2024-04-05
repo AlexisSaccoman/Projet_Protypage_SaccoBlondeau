@@ -96,16 +96,4 @@ public class CreneauController {
             System.out.println("Cours : " + c.getDescription() + " le " + c.getJour() + " de " + c.getHeureDebut() + " à " + c.getHeureFin() + " en salle " + c.getSalle());
         }
     }
-
-    public ArrayList<VBox> afficherEmploiDuTempsVBox(ArrayList<Creneau> cours) {
-        ArrayList<VBox> vboxes = new ArrayList<>();
-        VBox vbox = new VBox();
-        for (Creneau c : cours) {
-            Label label = new Label(c.getDescription());
-            vbox.getChildren().add(label);
-            vboxes.add(vbox);
-        }
-
-        return vboxes;
-    }
 }

@@ -190,6 +190,12 @@
                                     <children>
                                         <Label alignment="CENTER" text="COULEUR" />
                                         <ChoiceBox fx:id="ajouterEvenement_couleur" prefWidth="150.0">
+                                            <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                    <String fx:value="Vert"/>
+                                                    <String fx:value="Rouge" />
+                                                </FXCollections>
+                                            </items>
                                             <HBox.margin>
                                                 <Insets left="10.0" />
                                             </HBox.margin>

@@ -16,6 +16,7 @@ public class Creneau {
     LocalDate jour;
     String salle;
     String description;
+    String customColor = null;
 
     public Creneau(LocalDateTime jourHeureDebut, LocalDateTime jourHeureFin, String salle, String description) {
         this.heureDebut = jourHeureDebut.toLocalTime();
@@ -31,6 +32,15 @@ public class Creneau {
         this.jour = jour;
         this.salle = salle;
         this.description = description;
+    }
+
+    public Creneau(LocalTime heureDebut, LocalTime heureFin, LocalDate jour, String salle, String description, String customColor) {
+        this.heureDebut = heureDebut;
+        this.heureFin = heureFin;
+        this.jour = jour;
+        this.salle = salle;
+        this.description = description;
+        this.customColor = customColor;
     }
 
     public LocalTime getHeureDebut() {
@@ -79,23 +89,22 @@ public class Creneau {
         Label salleLabel = new Label(salle);
         Label descriptionLabel = new Label(description);
         vbox.getChildren().addAll(heureLabel, salleLabel, descriptionLabel);
-        return ifCoursEvaluation(vbox);
-    }
 
-    private VBox ifCoursEvaluation(VBox vbox) {
         if (
                 description.contains("Evaluation") ||
-                description.contains("évaluation") ||
-                description.contains("TPnoté") ||
-                description.contains("TP noté") ||
-                description.contains("CC") ||
-                description.contains("Oral") ||
-                description.contains("oral") ||
-                description.contains("soutenance") ||
-                description.contains("Soutenance")
-        ){
+                        description.contains("évaluation") ||
+                        description.contains("TPnoté") ||
+                        description.contains("TP noté") ||
+                        description.contains("CC") ||
+                        description.contains("Oral") ||
+                        description.contains("oral") ||
+                        description.contains("soutenance") ||
+                        description.contains("Soutenance")
+        ) {
             vbox.getStyleClass().add("evaluation");
-        }else{
+        } else if (customColor != null) {
+            vbox.getStyleClass().add(customColor);
+        } else {
             vbox.setId("creneau_edt_affichage");
         }
         return vbox;

@@ -20,6 +20,7 @@ public class Main extends Application {
         CreneauController creneauController = new CreneauController();
         System.out.println("Launching");
         ICSParsing icsParsing = new ICSParsing();
+        System.setProperty("ical4j.unfolding.relaxed", "true");
 
         Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
         creneauController.setCours(icsParsing.getAllCours(calendar));
