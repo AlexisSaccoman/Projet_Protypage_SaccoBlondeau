@@ -29,7 +29,7 @@ public class MenuController{
 
     @FXML
     void toEdtFormation(ActionEvent event) {
-        switch2Interface("/components/edtFormation/EdtFormationInterface.fxml");
+        switch2Interface("/components/accueilFormation/AccueilFormationInterface.fxml");
     }
 
     @FXML
@@ -39,14 +39,19 @@ public class MenuController{
 
     @FXML
     void toEdtSalle(ActionEvent event) {
-        switch2Interface("/components/edtFormation/EdtFormationInterface.fxml");
+        switch2Interface("/components/accueilSalle/AccueilSalleInterface.fxml");
     }
 
     public void switch2Interface(String path) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();
+            Object controller = loader.getController();
+            if (controller instanceof AccueilEtudiantController) {
+                ((AccueilEtudiantController) controller).setUsernameAndDate(username, date);
+            }
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
             Stage stage = (Stage) bg_menu.getScene().getWindow();
             stage.setScene(scene);
             stage.show();

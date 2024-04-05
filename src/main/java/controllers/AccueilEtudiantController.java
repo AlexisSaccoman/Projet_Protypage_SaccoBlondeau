@@ -154,6 +154,9 @@ public class AccueilEtudiantController implements Initializable {
     @FXML
     private VBox horairesContainer;
 
+    @FXML
+    private ChoiceBox<String> filtreFormation;
+
     private CreneauController creneauController = new CreneauController();
 
     private ArrayList<Creneau> allCours = new ArrayList<Creneau>();
@@ -240,37 +243,48 @@ public class AccueilEtudiantController implements Initializable {
     }
 
     public void setButtonData() {
-        ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
-        for (String salle : salles) {
-            selectionGroupe.getItems().add(salle);
-            ajouterEvenement_salle.getItems().add(salle);
-        }
-        selectionGroupe.setValue("Salle");
-        ajouterEvenement_salle.setValue("Salle");
+        if(selectionGroupe != null && ajouterEvenement_salle != null) {
+            ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
+            for (String salle : salles) {
 
-        ArrayList<String> typeDeCours = readFile("src\\main\\java\\db\\typeDeCours.txt");
-        for (String type : typeDeCours) {
-            selectionGroupe1.getItems().add(type);
+                selectionGroupe.getItems().add(salle);
+                ajouterEvenement_salle.getItems().add(salle);
+            }
+            selectionGroupe.setValue("Salle");
+            ajouterEvenement_salle.setValue("Salle");
         }
-        selectionGroupe1.setValue("Type de cours");
 
-        ArrayList<String> matieres = readFile("src\\main\\java\\db\\matieres.txt");
-        for (String matiere : matieres) {
-            selectionGroupe2.getItems().add(matiere);
+        if(selectionGroupe1 != null){
+            ArrayList<String> typeDeCours = readFile("src\\main\\java\\db\\typeDeCours.txt");
+            for (String type : typeDeCours) {
+                selectionGroupe1.getItems().add(type);
+            }
+            selectionGroupe1.setValue("Type de cours");
         }
-        selectionGroupe2.setValue("Matieres");
 
-        ArrayList<String> groupes = readFile("src\\main\\java\\db\\groupes.txt");
-        for (String groupe : groupes) {
-            selectionGroupe3.getItems().add(groupe);
+        if(selectionGroupe2 != null){
+            ArrayList<String> matieres = readFile("src\\main\\java\\db\\matieres.txt");
+            for (String matiere : matieres) {
+                selectionGroupe2.getItems().add(matiere);
+            }
+            selectionGroupe2.setValue("Matieres");
         }
-        selectionGroupe3.setValue("Groupe");
+
+        if(selectionGroupe3 != null){
+            ArrayList<String> groupes = readFile("src\\main\\java\\db\\groupes.txt");
+            for (String groupe : groupes) {
+                selectionGroupe3.getItems().add(groupe);
+            }
+            selectionGroupe3.setValue("Groupe");
+        }
 
         // ajout des affichages sur le bouton de sélection des affichages (par défaut : week)
-        selectionGroupe4.getItems().add("Week");
-        selectionGroupe4.getItems().add("Day");
-        selectionGroupe4.getItems().add("Month");
-        selectionGroupe4.setValue("Week");
+        if(selectionGroupe4 != null){
+            selectionGroupe4.getItems().add("Week");
+            selectionGroupe4.getItems().add("Day");
+            selectionGroupe4.getItems().add("Month");
+            selectionGroupe4.setValue("Week");
+        }
     }
 
     public void updateDateLabel() {
@@ -316,59 +330,81 @@ public class AccueilEtudiantController implements Initializable {
 
     public void filerBy() {
         // Salle
-        selectionGroupe.setOnAction(event -> {
-            creneauController.setCours(allCours);
-            creneauController.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
-            if (modeAffichage.equals("month")) {
-                drawGridOnEdtMonth(creneauController);
-            } else {
-                drawnEdtOnGrid(creneauController);
-            }
-        });
+        if (selectionGroupe != null) {
+            selectionGroupe.setOnAction(event -> {
+                creneauController.setCours(allCours);
+                creneauController.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
+                if (modeAffichage.equals("month")) {
+                    drawGridOnEdtMonth(creneauController);
+                } else {
+                    drawnEdtOnGrid(creneauController);
+                }
+            });
+        }
+
         // Type de cours
-        selectionGroupe1.setOnAction(event -> {
-            creneauController.setCours(allCours);
-            creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe1.getValue()));
-            drawnEdtOnGrid(creneauController);
-            if (modeAffichage.equals("month")) {
-                drawGridOnEdtMonth(creneauController);
-            } else {
-                drawnEdtOnGrid(creneauController);
-            }
-        });
+        if (selectionGroupe1 != null) {
+            selectionGroupe1.setOnAction(event -> {
+                creneauController.setCours(allCours);
+                creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe1.getValue()));
+                if (modeAffichage.equals("month")) {
+                    drawGridOnEdtMonth(creneauController);
+                } else {
+                    drawnEdtOnGrid(creneauController);
+                }
+            });
+        }
+
         // Matieres
-        selectionGroupe2.setOnAction(event -> {
-            creneauController.setCours(allCours);
-            creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe2.getValue()));
-            drawnEdtOnGrid(creneauController);
-            if (modeAffichage.equals("month")) {
-                drawGridOnEdtMonth(creneauController);
-            } else {
-                drawnEdtOnGrid(creneauController);
-            }
-        });
+        if (selectionGroupe2 != null) {
+            selectionGroupe2.setOnAction(event -> {
+                creneauController.setCours(allCours);
+                creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe2.getValue()));
+                if (modeAffichage.equals("month")) {
+                    drawGridOnEdtMonth(creneauController);
+                } else {
+                    drawnEdtOnGrid(creneauController);
+                }
+            });
+        }
+
         // Groupe
-        selectionGroupe3.setOnAction(event -> {
-            creneauController.setCours(allCours);
-            creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe3.getValue()));
-            drawnEdtOnGrid(creneauController);
-            if (modeAffichage.equals("month")) {
-                drawGridOnEdtMonth(creneauController);
-            } else {
-                drawnEdtOnGrid(creneauController);
-            }
-        });
+        if (selectionGroupe3 != null) {
+            selectionGroupe3.setOnAction(event -> {
+                creneauController.setCours(allCours);
+                creneauController.setCours(creneauController.getCoursByAnything(selectionGroupe3.getValue()));
+                if (modeAffichage.equals("month")) {
+                    drawGridOnEdtMonth(creneauController);
+                } else {
+                    drawnEdtOnGrid(creneauController);
+                }
+            });
+        }
+
         //mode d'affichage
-        selectionGroupe4.setOnAction(event -> {
-            changeDisplayMode();
-        });
+        if (selectionGroupe4 != null) {
+            selectionGroupe4.setOnAction(event -> {
+                changeDisplayMode();
+            });
+        }
     }
 
     public void resetFilters() {
-        selectionGroupe.setValue("Salle");
-        selectionGroupe1.setValue("Type de cours");
-        selectionGroupe2.setValue("Matieres");
-        selectionGroupe3.setValue("Groupe");
+        if(selectionGroupe != null){
+            selectionGroupe.setValue("Salle");
+        }
+
+        if (selectionGroupe1 != null) {
+            selectionGroupe1.setValue("Type de cours");
+        }
+
+        if (selectionGroupe2 != null) {
+            selectionGroupe2.setValue("Matieres");
+        }
+
+        if (selectionGroupe3 != null) {
+            selectionGroupe3.setValue("Groupe");
+        }
 
         creneauController.setCours(allCours);
 

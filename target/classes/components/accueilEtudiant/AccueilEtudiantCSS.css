@@ -35,6 +35,13 @@
     -fx-text-fill: #000000;
 }
 
+.Vert {
+    -fx-background-color: #00ff00;
+}
+
+.Rouge {
+    -fx-background-color: #ff0000;
+}
 
 .evaluation{
     -fx-background-color: #cce5ff;
