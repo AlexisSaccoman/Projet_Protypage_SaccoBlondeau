@@ -82,7 +82,7 @@ public class LoginController {
             // Si le contrôleur est une instance de AccueilEtudiantController ou AccueilEnseignantController,
             // appelez la méthode initData() en fonction du type de personne (étudiant ou enseignant)
             if (controller instanceof AccueilEtudiantController) {
-                ((AccueilEtudiantController) controller).setUsernameAndDate(username, date);
+                ((AccueilEtudiantController) controller).initData(username, date, "perso");
             } /*else if (controller instanceof AccueilEnseignantController) {
                 ((AccueilEnseignantController) controller).initData(personne);
             }*/

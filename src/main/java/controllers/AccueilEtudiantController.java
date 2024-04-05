@@ -163,6 +163,8 @@ public class AccueilEtudiantController implements Initializable {
 
     private String icsPath;
 
+    private String interfaceDisplayed; // perso / salle / formation
+
 
     public void setUsernameAndDate(String username, LocalDate date) {
         // Utiliser les données passées pour initialiser votre interface utilisateur
@@ -699,15 +701,46 @@ public class AccueilEtudiantController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    public String parserQui(String username, String interf){
+
+        String path = "";
+
+        if(interf.equals("perso")){
+            path = username;
+        }else if (interf.equals("salle")){
+            path = "Stat 7 = Info - C 128";
+        }else if (interf.equals("formation")){
+            path = "formation";
+        }
+
+        icsPath = "src/main/java/db/ics/"+path+".ics";
+        System.out.println(icsPath);
+
+        return path;
+    }
+
+    public void initData(String username, LocalDate date, String interf) {
+        setUsernameAndDate(username, date);
+        interfaceDisplayed = interf;
+        initParsing(parserQui(username, interf));
+    }
+
+    public void initParsing(String pathToParse){
+        if(pathToParse.equals("formation")){
+            return;
+        }
         ICSParsing icsParsing = new ICSParsing();
-        Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
+        Calendar calendar = icsParsing.parse("src/main/java/db/ics/"+pathToParse+".ics");
         allCours = icsParsing.getAllCours(calendar);
         creneauController.setCours(allCours);
+        drawnEdtOnGrid(creneauController);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setButtonData();
-        drawnEdtOnGrid(creneauController);
         updateDateLabel();
         filerBy();
 

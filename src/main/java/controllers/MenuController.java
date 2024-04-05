@@ -43,12 +43,21 @@ public class MenuController{
     }
 
     public void switch2Interface(String path) {
+        String interf = "";
+        if(path.contains("Salle")){
+            interf = "salle";
+        }else if (path.contains("Formation")){
+            interf = "formation";
+        }else if (path.contains("Enseignant") || path.contains("Etudiant")){
+            interf = "perso";
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();
             Object controller = loader.getController();
             if (controller instanceof AccueilEtudiantController) {
-                ((AccueilEtudiantController) controller).setUsernameAndDate(username, date);
+                //((AccueilEtudiantController) controller).setUsernameAndDate(username, date);
+                ((AccueilEtudiantController) controller).initData(username, date, interf);
             }
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
@@ -80,7 +89,7 @@ public class MenuController{
             // Si le contrôleur est une instance de AccueilEtudiantController ou AccueilEnseignantController,
             // appelez la méthode initData() en fonction du type de personne (étudiant ou enseignant)
             if (controller instanceof AccueilEtudiantController) {
-                ((AccueilEtudiantController) controller).setUsernameAndDate(username, date);
+                ((AccueilEtudiantController) controller).initData(username, date, "perso");
             } /*else if (controller instanceof AccueilEnseignantController) {
                 ((AccueilEnseignantController) controller).initData(personne);
             }*/
