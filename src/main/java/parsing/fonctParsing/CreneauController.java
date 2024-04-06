@@ -48,10 +48,11 @@ public class CreneauController {
 
         for (Creneau c : filteredCours) {
             System.out.println("Debut : " + debut + " Fin : " + fin + " c.getHeureDebut() : " + c.getHeureDebut() + " c.getHeureFin() : " + c.getHeureFin());
-            if ((debut.isAfter(c.getHeureDebut()) && debut.isBefore(c.getHeureFin())) ||
-                    (fin.isAfter(c.getHeureDebut()) && fin.isBefore(c.getHeureFin())) ||
-                    (debut.equals(c.getHeureDebut()) && fin.equals(c.getHeureFin())) ||
-                    (debut.isBefore(c.getHeureDebut()) && fin.equals(c.getHeureFin()))) {
+            if ((fin.equals(c.getHeureFin()) || debut.equals(c.getHeureDebut())) ||
+                (debut.isAfter(c.getHeureDebut()) && fin.isBefore(c.getHeureFin())) ||
+                (debut.isBefore(c.getHeureDebut()) && fin.isAfter(c.getHeureDebut())) ||
+                (debut.isBefore(c.getHeureDebut()) && fin.isAfter(c.getHeureFin()) && fin.isBefore(c.getHeureFin())) ||
+                (debut.isAfter(c.getHeureDebut()) && debut.isBefore(c.getHeureFin()) && fin.isAfter(c.getHeureFin()))) {
                 return true;
             }
         }

@@ -86,6 +86,10 @@ public class Creneau {
         VBox vbox = new VBox();
         Label heureLabel = new Label(heureDebut + " - " + heureFin);
         Label salleLabel = new Label(salle);
+        if ( salle == null || salle.equals("null")) {
+            salleLabel = new Label("");
+        }
+
         Label descriptionLabel = new Label(description);
         vbox.getChildren().addAll(heureLabel, salleLabel, descriptionLabel);
 

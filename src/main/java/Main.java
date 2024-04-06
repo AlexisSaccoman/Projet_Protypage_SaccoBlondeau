@@ -22,11 +22,11 @@ public class Main extends Application {
         ICSParsing icsParsing = new ICSParsing();
         System.setProperty("ical4j.unfolding.relaxed", "true");
 
-        Calendar calendar = icsParsing.parse("src/main/resources/sacco_1.ics");
+        Calendar calendar = icsParsing.parse("src/main/java/db/ics/blondeau.ics");
         creneauController.setCours(icsParsing.getAllCours(calendar));
 
         System.out.println("Cours : " + creneauController.getCours().size());
-        //creneauController.afficherEmploiDuTemps(creneauController.getCours());
+        creneauController.afficherEmploiDuTemps(creneauController.getCours());
 
         // ArrayList<Creneau> coursAujourdhui = creneauController.getCoursByDay("2024-03-14");
         // creneauController.afficherEmploiDuTemps(coursAujourdhui);
@@ -37,8 +37,8 @@ public class Main extends Application {
         //ArrayList<Creneau> coursSalle = creneauController.getCoursBySalle("C 137");
         //creneauController.afficherEmploiDuTemps(coursSalle);
 
-        ArrayList<Creneau> groupe = creneauController.getCoursByAnything("M1-ILSEN-cla-Gr2");
-        creneauController.afficherEmploiDuTemps(groupe);
+//        ArrayList<Creneau> groupe = creneauController.getCoursByAnything("M1-ILSEN-cla-Gr2");
+//        creneauController.afficherEmploiDuTemps(groupe);
 
         launch(args);
     }

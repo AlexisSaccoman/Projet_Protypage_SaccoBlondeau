@@ -255,7 +255,7 @@ public class AccueilEtudiantController implements Initializable {
             selectionGroupe.setValue("Salle");
         }
 
-        if(ajouterEvenement_salle != null) {
+        if (ajouterEvenement_salle != null) {
             ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
             for (String salle : salles) {
                 ajouterEvenement_salle.getItems().add(salle);
@@ -446,6 +446,7 @@ public class AccueilEtudiantController implements Initializable {
     public void drawnEdtOnGrid(CreneauController creneauController) {
         Map<String, Integer> heureIndexMap = new HashMap<>();
         heureIndexMap.put("02:00", 0); // Pour les évènements de toute une journée, heure début et de fin = 02:00
+        heureIndexMap.put("08:00", 0);
         heureIndexMap.put("08:30", 1);
         heureIndexMap.put("09:00", 2);
         heureIndexMap.put("09:30", 3);
@@ -473,16 +474,18 @@ public class AccueilEtudiantController implements Initializable {
         ArrayList<Creneau> cours = new ArrayList<>();
 
         // Ajout des éléments persos
-        if(interfaceDisplayed.equals("perso")) {
-            String filePath = "src/main/java/db/perso/" + nomPrenom.getText() + ".txt";
+        if (interfaceDisplayed.equals("perso")) {
+            String filePath = "src/main/java/db/evenementsPerso.txt";
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] columns = line.split(";");
-                    if (columns.length >= 5) {
-                        Creneau c = new Creneau(LocalTime.parse(columns[1]), LocalTime.parse(columns[2]), LocalDate.parse(columns[0]), columns[3], columns[4]);
-                        c.setCustomColor(columns[5]);
-                        creneauController.addCreneau(c);
+                    if (columns.length >= 6) {
+                        if (nomPrenom.getText().equals(columns[0])) { // On ajoute que les évènements de l'utilisateur connecté
+                            Creneau c = new Creneau(LocalTime.parse(columns[2]), LocalTime.parse(columns[3]), LocalDate.parse(columns[1]), columns[4], columns[5]);
+                            c.setCustomColor(columns[6]);
+                            creneauController.addCreneau(c);
+                        }
                     }
                 }
             } catch (IOException e) {
@@ -665,9 +668,13 @@ public class AccueilEtudiantController implements Initializable {
     }
 
     public void ajouterEvenement() {
-        if (ajouterEvenement_date.getValue() == null || ajouterEvenement_heureDebut.getValue() == null || ajouterEvenement_heureFin.getValue() == null || ajouterEvenement_salle.getValue() == null || ajouterEvenement_intitule.getText().equals("")) {
+        if (ajouterEvenement_date.getValue() == null || ajouterEvenement_heureDebut.getValue() == "Heure début" || ajouterEvenement_heureFin.getValue() == "Heure fin" || ajouterEvenement_intitule.getText().equals("")) {
             System.out.println("Veuillez remplir tous les champs");
             return;
+        }
+
+        if (ajouterEvenement_salle.getValue() == "Salle") {
+            ajouterEvenement_salle.setValue("null");
         }
 
         LocalTime heureDebut = LocalTime.parse(ajouterEvenement_heureDebut.getValue().toString());
@@ -681,18 +688,34 @@ public class AccueilEtudiantController implements Initializable {
         // Check si salle utilisée
         ICSParsing icsParsing = new ICSParsing();
         File file = new File("src/main/java/db/ics/" + ajouterEvenement_salle.getValue() + ".ics");
-        System.out.println("fichier salle : " + ajouterEvenement_salle.getValue());
+
         if (file.exists()) {
             Calendar calendarSalle = icsParsing.parse("src/main/java/db/ics/" + ajouterEvenement_salle.getValue() + ".ics");
             CreneauController creneauControllerSalle = new CreneauController();
             creneauControllerSalle.setCours(icsParsing.getAllCours(calendarSalle));
+
+            // Ajoute les évènements persos qui ont une salle à la vérification de disponibilité
+            String filePath = "src/main/java/db/evenementsPerso.txt";
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] columns = line.split(";");
+                    if (columns[4].equals(ajouterEvenement_salle.getValue())) { // Si l'évènement n'a pas de salle, on ne l'ajoute pas (pas de Salle à "Salle" à la place de la salle)
+                        Creneau c = new Creneau(LocalTime.parse(columns[2]), LocalTime.parse(columns[3]), LocalDate.parse(columns[1]), columns[4], columns[5]);
+                        creneauControllerSalle.addCreneau(c);
+
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             if (creneauControllerSalle.isCreneauUsed(heureDebut, heureFin, ajouterEvenement_date.getValue())) {
                 System.out.println("Créneau salle déjà utilisé");
                 return;
             }
         } else {
-            System.out.println("Fichier salle non trouvé, impossible de vérifier la disponibilité de la salle");
+            System.out.println("Fichier salle non disponible, impossible de vérifier la disponibilité de la salle");
         }
 
         // Check si créneau déjà utilisé (dans l'edt perso)
@@ -700,8 +723,8 @@ public class AccueilEtudiantController implements Initializable {
             System.out.println("Créneau déjà utilisé");
             return;
         } else {
-            String filePath = "src/main/java/db/perso/" + nomPrenom.getText() + ".txt";
-            String data = ajouterEvenement_date.getValue().toString() + ";" + ajouterEvenement_heureDebut.getValue() + ";" + ajouterEvenement_heureFin.getValue() + ";" + ajouterEvenement_salle.getValue() + ";" + ajouterEvenement_intitule.getText() + ";" + ajouterEvenement_couleur.getValue() + "\n";
+            String filePath = "src/main/java/db/evenementsPerso.txt";
+            String data = nomPrenom.getText() + ";" + ajouterEvenement_date.getValue().toString() + ";" + ajouterEvenement_heureDebut.getValue() + ";" + ajouterEvenement_heureFin.getValue() + ";" + ajouterEvenement_salle.getValue() + ";" + ajouterEvenement_intitule.getText() + ";" + ajouterEvenement_couleur.getValue() + "\n";
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
                 writer.write(data);

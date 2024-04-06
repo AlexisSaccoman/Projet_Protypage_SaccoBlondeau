@@ -1,2 +1,0 @@
-2024-04-06;15:00;16:00;Stat 4 = Info - C 131;caca;Vert
-2024-04-07;15:00;16:00;Stat 4 = Info - C 131;zizi;Rouge
