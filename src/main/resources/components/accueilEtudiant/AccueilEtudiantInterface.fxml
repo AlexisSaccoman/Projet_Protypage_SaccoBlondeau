@@ -192,7 +192,7 @@
                                         <ChoiceBox fx:id="ajouterEvenement_couleur" prefWidth="150.0">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="Vert"/>
+                                                    <String fx:value="Vert" />
                                                     <String fx:value="Rouge" />
                                                 </FXCollections>
                                             </items>
@@ -206,25 +206,6 @@
                                         </ChoiceBox>
                                     </children>
                                 </HBox>
-                        <HBox alignment="CENTER">
-                           <children>
-      
-                                                    <Label alignment="CENTER" text="SALLE">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                                        <ChoiceBox fx:id="ajouterEvenement_salle" prefWidth="150.0">
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                                 <styleClass>
-                                    <String fx:value="button" />
-                                    <String fx:value="choiceList" />
-                                 </styleClass>
-                                        </ChoiceBox>
-                           </children>
-                        </HBox>
                                 <HBox alignment="CENTER" prefHeight="75.0" prefWidth="300.0">
                                     <children>
                                         <Label alignment="CENTER" text="INTITULE" />

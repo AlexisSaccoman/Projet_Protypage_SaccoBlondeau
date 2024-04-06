@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.divers.EmailSender;
 import controllers.divers.Personne;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -17,12 +18,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.parameter.Email;
 import parsing.ICSParsing;
 import parsing.fonctParsing.Creneau;
 import parsing.fonctParsing.CreneauController;
@@ -779,11 +782,13 @@ public class AccueilEtudiantController implements Initializable {
 
         DB db = new DB();
 
+        String role = db.getRole(nomPrenom.getText());
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/menu/MenuInterface.fxml"));
             Parent root = loader.load();
             MenuController controller = loader.getController();
-            controller.initData("/components/accueilEtudiant/" + db.getCssPath("etudiant", nomPrenom.getText()) + ".css", nomPrenom.getText(), LocalDate.now(), "etudiant");
+            controller.initData("/components/accueilEtudiant/" + db.getCssPath(role, nomPrenom.getText()) + ".css", nomPrenom.getText(), LocalDate.now(), "etudiant");
             Scene scene = new Scene(root);
             Stage stage = (Stage) grid_edt.getScene().getWindow();
             stage.setScene(scene);
@@ -792,6 +797,35 @@ public class AccueilEtudiantController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void sendMail(String prof, String content) {
+        EmailSender eSender = new EmailSender();
+        sendMail(prof, content);
+    }
+
+    @FXML
+    private void handleCreneauClic(MouseEvent event) {
+
+        if (event.getSource() instanceof Node) {
+            Node source = (Node) event.getSource();
+            // todo vérifier "correctement" si c'est un créneau d'évaluation ou un crénau d'emploi du temps
+            if (source.getStyleClass().contains("evaluation") || (source.getId() != null && source.getId().equals("creneau_edt_affichage"))) {
+                // Appel de la fonction sendMail()
+                // todo récupérer le professeur de l'évènement
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Voulez-vous envoyer un mail à Mr/Mme ?");
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.CANCEL) {
+                    return;
+                }
+                //sendMail(prof, "Bonjour ceci est un mail automatique, veuillez ne pas y répondre.");
+                System.out.println("Cliqué");
+            }
+        }
+    }
+
 
 
     public String parserQui(String username, String interf) {
@@ -835,6 +869,7 @@ public class AccueilEtudiantController implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -843,10 +878,16 @@ public class AccueilEtudiantController implements Initializable {
         filerBy();
 
         Platform.runLater(() -> {
-            // Récupérer la scène et ajouter le gestionnaire d'événements clavier
             Scene scene = grid_edt.getScene();
             setUntraversable(scene);
             scene.setOnKeyPressed(this::handleKey);
+            grid_edt.setOnMouseClicked(event -> {
+                // récupérer les évènements de clic sur les créneaux
+                handleCreneauClic(event);
+            });
         });
     }
+
 }
+
+

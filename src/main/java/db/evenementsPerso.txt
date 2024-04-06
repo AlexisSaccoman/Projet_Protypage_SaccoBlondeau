@@ -1,7 +1,5 @@
-sacco;2024-04-06;15:00;16:00;Stat 4 = Info - C 131;caca;Vert
-sacco;2024-04-07;15:00;16:00;Stat 4 = Info - C 131;zizi;Rouge
-sacco;2024-04-04;13:00;14:30;null;caca;Vert
 sacco;2024-04-03;11:30;13:00;Stat 7 = Info - C 128;sasa;Vert
 blondeau;2024-04-06;13:30;15:30;null;segs;Vert
-sacco;2024-04-12;11:00;12:00;Stat 7 = Info - C 128;test resa stat 7
+sacco;2024-04-12;11:00;12:00;Stat 7 = Info - C 128;test resa stat 7;Vert
 blondeau;2024-04-12;12:00;12:30;Stat 7 = Info - C 128;caca;Rouge
+sacco;2024-04-04;13:00;14:30;Stat 1 = Info - C 137;Apéro;Rouge

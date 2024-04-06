@@ -112,4 +112,9 @@ public class Creneau {
         }
         return vbox;
     }
+
+    public String getAllInfo() {
+        // return une string contenant toutes les informations du créneau
+        return heureDebut + " - " + heureFin + " " + salle + " " + description;
+    }
 }

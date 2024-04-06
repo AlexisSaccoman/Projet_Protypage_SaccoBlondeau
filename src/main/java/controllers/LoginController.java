@@ -62,7 +62,7 @@ public class LoginController {
                 switchToInterface2("/components/accueilEtudiant/AccueilEtudiantInterface.fxml", "/components/accueilEtudiant/" + p.css + ".css", p.login, currentDate);
                 System.out.println("Etudiant");
             }else if(p.statut.equals("enseignant")){
-                switchToInterface2("/components/accueilEnseignant/AccueilEnseignantInterface.fxml", "/components/accueilEnseignant/" + p.css + ".css", p.login, currentDate);
+                switchToInterface2("/components/accueilEnseignant/AccueilEnseignantInterface.fxml", "/components/accueilEtudiant/" + p.css + ".css", p.login, currentDate);
                 System.out.println("Enseignant");
 
             }
@@ -79,13 +79,7 @@ public class LoginController {
             // Obtention du contrôleur après le chargement du FXML
             Object controller = loader.getController();
 
-            // Si le contrôleur est une instance de AccueilEtudiantController ou AccueilEnseignantController,
-            // appelez la méthode initData() en fonction du type de personne (étudiant ou enseignant)
-            if (controller instanceof AccueilEtudiantController) {
-                ((AccueilEtudiantController) controller).initData(username, date, "perso");
-            } /*else if (controller instanceof AccueilEnseignantController) {
-                ((AccueilEnseignantController) controller).initData(personne);
-            }*/
+            ((AccueilEtudiantController) controller).initData(username, date, "perso");
 
             // Création d'une nouvelle scène avec la nouvelle interface
             Scene scene = new Scene(root);

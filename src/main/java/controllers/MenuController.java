@@ -55,10 +55,7 @@ public class MenuController{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent root = loader.load();
             Object controller = loader.getController();
-            if (controller instanceof AccueilEtudiantController) {
-                //((AccueilEtudiantController) controller).setUsernameAndDate(username, date);
-                ((AccueilEtudiantController) controller).initData(username, date, interf);
-            }
+            ((AccueilEtudiantController) controller).initData(username, date, interf);
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
             Stage stage = (Stage) bg_menu.getScene().getWindow();
@@ -86,13 +83,7 @@ public class MenuController{
             // Obtention du contrôleur après le chargement du FXML
             Object controller = loader.getController();
 
-            // Si le contrôleur est une instance de AccueilEtudiantController ou AccueilEnseignantController,
-            // appelez la méthode initData() en fonction du type de personne (étudiant ou enseignant)
-            if (controller instanceof AccueilEtudiantController) {
-                ((AccueilEtudiantController) controller).initData(username, date, "perso");
-            } /*else if (controller instanceof AccueilEnseignantController) {
-                ((AccueilEnseignantController) controller).initData(personne);
-            }*/
+            ((AccueilEtudiantController) controller).initData(username, date, "perso");
 
             // Création d'une nouvelle scène avec la nouvelle interface
             Scene scene = new Scene(root);

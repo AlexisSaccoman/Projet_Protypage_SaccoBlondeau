@@ -38,10 +38,21 @@ public class DB {
         return null;
     }
 
+    public String getRole(String username){
+        // retourne le role de l'utilisateur
+        for(Personne p : personnes){
+            if(p.login.equals(username)){
+                return p.statut;
+            }
+        }
+        return "";
+    }
+
     public String getCssPath(String role, String username){
         // retourne le chemin du fichier css correspondant au role de l'utilisateur et à son nom
         for(Personne p : personnes){
             if(p.login.equals(username) && p.statut.equals(role)){
+                System.out.println("Chemin css --> " + p.css);
                 return p.css;
             }
         }
