@@ -34,15 +34,24 @@ public class CreneauController {
         return filteredCours;
     }
 
-    public void addCreneau(Creneau c) {
-        cours.add(c);
+    public void addCreneau(Creneau creneau) {
+        cours.add(creneau);
+    }
+    public void addCreneaux(ArrayList<Creneau> creneaux) {
+        for (Creneau c : creneaux) {
+            cours.add(c);
+        }
     }
 
     public boolean isCreneauUsed(LocalTime debut, LocalTime fin, LocalDate jour) {
         ArrayList<Creneau> filteredCours = new ArrayList<>(getCoursByDay(jour));
 
         for (Creneau c : filteredCours) {
-            if ((c.getHeureDebut().equals(debut) || c.getHeureDebut().isAfter(debut)) && (c.getHeureFin().isBefore(fin) || c.getHeureFin().equals(fin))) {
+            System.out.println("Debut : " + debut + " Fin : " + fin + " c.getHeureDebut() : " + c.getHeureDebut() + " c.getHeureFin() : " + c.getHeureFin());
+            if ((debut.isAfter(c.getHeureDebut()) && debut.isBefore(c.getHeureFin())) ||
+                    (fin.isAfter(c.getHeureDebut()) && fin.isBefore(c.getHeureFin())) ||
+                    (debut.equals(c.getHeureDebut()) && fin.equals(c.getHeureFin())) ||
+                    (debut.isBefore(c.getHeureDebut()) && fin.equals(c.getHeureFin()))) {
                 return true;
             }
         }

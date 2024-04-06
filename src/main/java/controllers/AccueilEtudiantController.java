@@ -472,15 +472,6 @@ public class AccueilEtudiantController implements Initializable {
         grid_edt.getChildren().clear(); // On efface tout ce qu'il y avait dans la grid
         ArrayList<Creneau> cours = new ArrayList<>();
 
-        // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
-        if (modeAffichage.equals("week")) {
-            LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
-            cours = creneauController.getCoursByDayPeriod(currentMonday, currentMonday.plusDays(7)); // On regarde 5 jours dans le futur
-        } else if (modeAffichage.equals("day")) {
-            LocalDate currentDay = LocalDate.now().plusDays(weekFromNow);
-            cours = creneauController.getCoursByDay(currentDay); // On regarde 5 jours dans le futur
-        }
-
         // Ajout des éléments persos
         if(interfaceDisplayed.equals("perso")) {
             String filePath = "src/main/java/db/perso/" + nomPrenom.getText() + ".txt";
@@ -491,12 +482,21 @@ public class AccueilEtudiantController implements Initializable {
                     if (columns.length >= 5) {
                         Creneau c = new Creneau(LocalTime.parse(columns[1]), LocalTime.parse(columns[2]), LocalDate.parse(columns[0]), columns[3], columns[4]);
                         c.setCustomColor(columns[5]);
-                        cours.add(c);
+                        creneauController.addCreneau(c);
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+
+        // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
+        if (modeAffichage.equals("week")) {
+            LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
+            cours = creneauController.getCoursByDayPeriod(currentMonday, currentMonday.plusDays(7)); // On regarde 5 jours dans le futur
+        } else if (modeAffichage.equals("day")) {
+            LocalDate currentDay = LocalDate.now().plusDays(weekFromNow);
+            cours = creneauController.getCoursByDay(currentDay); // On regarde 5 jours dans le futur
         }
 
         for (Creneau c : cours) {
@@ -678,6 +678,7 @@ public class AccueilEtudiantController implements Initializable {
             return;
         }
 
+        // Check si salle utilisée
         ICSParsing icsParsing = new ICSParsing();
         File file = new File("src/main/java/db/ics/" + ajouterEvenement_salle.getValue() + ".ics");
         System.out.println("fichier salle : " + ajouterEvenement_salle.getValue());
@@ -694,6 +695,7 @@ public class AccueilEtudiantController implements Initializable {
             System.out.println("Fichier salle non trouvé, impossible de vérifier la disponibilité de la salle");
         }
 
+        // Check si créneau déjà utilisé (dans l'edt perso)
         if (creneauController.isCreneauUsed(heureDebut, heureFin, ajouterEvenement_date.getValue())) {
             System.out.println("Créneau déjà utilisé");
             return;
