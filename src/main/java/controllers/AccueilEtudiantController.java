@@ -245,18 +245,23 @@ public class AccueilEtudiantController implements Initializable {
     }
 
     public void setButtonData() {
-        if(selectionGroupe != null && ajouterEvenement_salle != null) {
+        if (selectionGroupe != null) {
             ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
             for (String salle : salles) {
-
                 selectionGroupe.getItems().add(salle);
-                ajouterEvenement_salle.getItems().add(salle);
             }
             selectionGroupe.setValue("Salle");
+        }
+
+        if(ajouterEvenement_salle != null) {
+            ArrayList<String> salles = readFile("src\\main\\java\\db\\salles.txt");
+            for (String salle : salles) {
+                ajouterEvenement_salle.getItems().add(salle);
+            }
             ajouterEvenement_salle.setValue("Salle");
         }
 
-        if(selectionGroupe1 != null){
+        if (selectionGroupe1 != null) {
             ArrayList<String> typeDeCours = readFile("src\\main\\java\\db\\typeDeCours.txt");
             for (String type : typeDeCours) {
                 selectionGroupe1.getItems().add(type);
@@ -264,7 +269,7 @@ public class AccueilEtudiantController implements Initializable {
             selectionGroupe1.setValue("Type de cours");
         }
 
-        if(selectionGroupe2 != null){
+        if (selectionGroupe2 != null) {
             ArrayList<String> matieres = readFile("src\\main\\java\\db\\matieres.txt");
             for (String matiere : matieres) {
                 selectionGroupe2.getItems().add(matiere);
@@ -272,7 +277,7 @@ public class AccueilEtudiantController implements Initializable {
             selectionGroupe2.setValue("Matieres");
         }
 
-        if(selectionGroupe3 != null){
+        if (selectionGroupe3 != null) {
             ArrayList<String> groupes = readFile("src\\main\\java\\db\\groupes.txt");
             for (String groupe : groupes) {
                 selectionGroupe3.getItems().add(groupe);
@@ -280,8 +285,16 @@ public class AccueilEtudiantController implements Initializable {
             selectionGroupe3.setValue("Groupe");
         }
 
+        if (filtreFormation != null) {
+            ArrayList<String> formations = readFile("src\\main\\java\\db\\formations.txt");
+            for (String formation : formations) {
+                filtreFormation.getItems().add(formation);
+            }
+            filtreFormation.setValue("Formation");
+        }
+
         // ajout des affichages sur le bouton de sélection des affichages (par défaut : week)
-        if(selectionGroupe4 != null){
+        if (selectionGroupe4 != null) {
             selectionGroupe4.getItems().add("Week");
             selectionGroupe4.getItems().add("Day");
             selectionGroupe4.getItems().add("Month");
@@ -334,12 +347,16 @@ public class AccueilEtudiantController implements Initializable {
         // Salle
         if (selectionGroupe != null) {
             selectionGroupe.setOnAction(event -> {
-                creneauController.setCours(allCours);
-                creneauController.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
-                if (modeAffichage.equals("month")) {
-                    drawGridOnEdtMonth(creneauController);
+                if (interfaceDisplayed.equals("salle")) { // Si on est sur l'interface salle, on utilise la valeur pour parser le bon fichier
+                    initParsing(selectionGroupe.getValue());
                 } else {
-                    drawnEdtOnGrid(creneauController);
+                    creneauController.setCours(allCours);
+                    creneauController.setCours(creneauController.getCoursBySalle(selectionGroupe.getValue()));
+                    if (modeAffichage.equals("month")) {
+                        drawGridOnEdtMonth(creneauController);
+                    } else {
+                        drawnEdtOnGrid(creneauController);
+                    }
                 }
             });
         }
@@ -389,10 +406,17 @@ public class AccueilEtudiantController implements Initializable {
                 changeDisplayMode();
             });
         }
+
+        // Si on est sur interface formation (filtreFormation != null), on parse le fichier formation
+        if (filtreFormation != null) {
+            filtreFormation.setOnAction(event -> {
+                initParsing(filtreFormation.getValue());
+            });
+        }
     }
 
     public void resetFilters() {
-        if(selectionGroupe != null){
+        if (selectionGroupe != null) {
             selectionGroupe.setValue("Salle");
         }
 
@@ -455,8 +479,6 @@ public class AccueilEtudiantController implements Initializable {
             cours = creneauController.getCoursByDay(currentDay); // On regarde 5 jours dans le futur
         }
 
-        creneauController.afficherEmploiDuTemps(cours); // TODO remove
-
         for (Creneau c : cours) {
             // Récupère les index (verticaux) dans la hmap en fonction des horaires + index du jour (horizontal)
             Integer indexHeureDebut = heureIndexMap.get(c.getHeureDebut().toString());
@@ -516,7 +538,7 @@ public class AccueilEtudiantController implements Initializable {
             vbox.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(Color.LIGHTBLUE, null, null)));
             vbox.getChildren().addAll(label, dateLabel);
 
-            int departHBoxValue = departHBox.getOrDefault(date.getDayOfMonth()/7, 0);
+            int departHBoxValue = departHBox.getOrDefault(date.getDayOfMonth() / 7, 0);
             grid_edt.add(vbox, date.getDayOfWeek().getValue() - 1, departHBoxValue, 1, 4);
         }
     }
@@ -702,20 +724,19 @@ public class AccueilEtudiantController implements Initializable {
     }
 
 
-    public String parserQui(String username, String interf){
+    public String parserQui(String username, String interf) {
 
         String path = "";
 
-        if(interf.equals("perso")){
+        if (interf.equals("perso")) {
             path = username;
-        }else if (interf.equals("salle")){
-            path = "Stat 7 = Info - C 128";
-        }else if (interf.equals("formation")){
-            path = "formation";
+        } else if (interf.equals("salle")) {
+            path = "";
+        } else if (interf.equals("formation")) {
+            path = "";
         }
 
-        icsPath = "src/main/java/db/ics/"+path+".ics";
-        System.out.println(icsPath);
+        icsPath = "src/main/java/db/ics/" + path + ".ics";
 
         return path;
     }
@@ -726,15 +747,23 @@ public class AccueilEtudiantController implements Initializable {
         initParsing(parserQui(username, interf));
     }
 
-    public void initParsing(String pathToParse){
-        if(pathToParse.equals("formation")){
+    public void initParsing(String pathToParse) {
+        File file = new File("src/main/java/db/ics/" + pathToParse + ".ics");
+
+        System.out.println("Path to parse : " + pathToParse);
+        if (!file.exists()) {
             return;
         }
         ICSParsing icsParsing = new ICSParsing();
-        Calendar calendar = icsParsing.parse("src/main/java/db/ics/"+pathToParse+".ics");
+        Calendar calendar = icsParsing.parse("src/main/java/db/ics/" + pathToParse + ".ics");
         allCours = icsParsing.getAllCours(calendar);
         creneauController.setCours(allCours);
-        drawnEdtOnGrid(creneauController);
+
+        if (modeAffichage.equals("month")) {
+            drawGridOnEdtMonth(creneauController);
+        } else {
+            drawnEdtOnGrid(creneauController);
+        }
     }
 
     @Override
