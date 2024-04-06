@@ -29,6 +29,8 @@ import parsing.fonctParsing.CreneauController;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.sql.SQLOutput;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -473,10 +475,28 @@ public class AccueilEtudiantController implements Initializable {
         // Récupère le Lundi par rapport au jour actuel, et on ajoute a quel semaine on est (0 = semaine actuelle, 1 semaine suivant etc...)
         if (modeAffichage.equals("week")) {
             LocalDate currentMonday = LocalDate.now().with(DayOfWeek.MONDAY).plusWeeks(weekFromNow);
-            cours = creneauController.getCoursByDayPeriod(currentMonday, currentMonday.plusDays(5)); // On regarde 5 jours dans le futur
+            cours = creneauController.getCoursByDayPeriod(currentMonday, currentMonday.plusDays(7)); // On regarde 5 jours dans le futur
         } else if (modeAffichage.equals("day")) {
             LocalDate currentDay = LocalDate.now().plusDays(weekFromNow);
             cours = creneauController.getCoursByDay(currentDay); // On regarde 5 jours dans le futur
+        }
+
+        // Ajout des éléments persos
+        if(interfaceDisplayed.equals("perso")) {
+            String filePath = "src/main/java/db/perso/" + nomPrenom.getText() + ".txt";
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] columns = line.split(";");
+                    if (columns.length >= 5) {
+                        Creneau c = new Creneau(LocalTime.parse(columns[1]), LocalTime.parse(columns[2]), LocalDate.parse(columns[0]), columns[3], columns[4]);
+                        c.setCustomColor(columns[5]);
+                        cours.add(c);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         for (Creneau c : cours) {
@@ -657,10 +677,35 @@ public class AccueilEtudiantController implements Initializable {
             System.out.println("L'heure de début doit être avant l'heure de fin");
             return;
         }
+
+        ICSParsing icsParsing = new ICSParsing();
+        File file = new File("src/main/java/db/ics/" + ajouterEvenement_salle.getValue() + ".ics");
+        System.out.println("fichier salle : " + ajouterEvenement_salle.getValue());
+        if (file.exists()) {
+            Calendar calendarSalle = icsParsing.parse("src/main/java/db/ics/" + ajouterEvenement_salle.getValue() + ".ics");
+            CreneauController creneauControllerSalle = new CreneauController();
+            creneauControllerSalle.setCours(icsParsing.getAllCours(calendarSalle));
+
+            if (creneauControllerSalle.isCreneauUsed(heureDebut, heureFin, ajouterEvenement_date.getValue())) {
+                System.out.println("Créneau salle déjà utilisé");
+                return;
+            }
+        } else {
+            System.out.println("Fichier salle non trouvé, impossible de vérifier la disponibilité de la salle");
+        }
+
         if (creneauController.isCreneauUsed(heureDebut, heureFin, ajouterEvenement_date.getValue())) {
             System.out.println("Créneau déjà utilisé");
+            return;
         } else {
-            creneauController.addCreneau(new Creneau(heureDebut, heureFin, ajouterEvenement_date.getValue(), ajouterEvenement_salle.getValue(), ajouterEvenement_intitule.getText(), ajouterEvenement_couleur.getValue()));
+            String filePath = "src/main/java/db/perso/" + nomPrenom.getText() + ".txt";
+            String data = ajouterEvenement_date.getValue().toString() + ";" + ajouterEvenement_heureDebut.getValue() + ";" + ajouterEvenement_heureFin.getValue() + ";" + ajouterEvenement_salle.getValue() + ";" + ajouterEvenement_intitule.getText() + ";" + ajouterEvenement_couleur.getValue() + "\n";
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+                writer.write(data);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             drawnEdtOnGrid(creneauController);
         }
     }
@@ -749,7 +794,6 @@ public class AccueilEtudiantController implements Initializable {
 
     public void initParsing(String pathToParse) {
         File file = new File("src/main/java/db/ics/" + pathToParse + ".ics");
-
         System.out.println("Path to parse : " + pathToParse);
         if (!file.exists()) {
             return;

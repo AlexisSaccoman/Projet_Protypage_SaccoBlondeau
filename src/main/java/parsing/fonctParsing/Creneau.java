@@ -34,12 +34,11 @@ public class Creneau {
         this.description = description;
     }
 
-    public Creneau(LocalTime heureDebut, LocalTime heureFin, LocalDate jour, String salle, String description, String customColor) {
-        this.heureDebut = heureDebut;
-        this.heureFin = heureFin;
-        this.jour = jour;
-        this.salle = salle;
-        this.description = description;
+    public String getCustomColor() {
+        return customColor;
+    }
+
+    public void setCustomColor(String customColor) {
         this.customColor = customColor;
     }
 
