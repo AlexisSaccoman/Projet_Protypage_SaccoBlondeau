@@ -32,6 +32,7 @@ import parsing.fonctParsing.CreneauController;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.sql.SQLOutput;
@@ -799,7 +800,7 @@ public class AccueilEtudiantController implements Initializable {
     }
 
     @FXML
-    public void sendMail(ActionEvent event) {
+    public void sendMail(ActionEvent event) throws IOException, URISyntaxException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Voulez-vous envoyer un mail à Mr/Mme ?");
@@ -808,7 +809,7 @@ public class AccueilEtudiantController implements Initializable {
             return;
         }
         EmailSender eSender = new EmailSender();
-        EmailSender.sendMail("Test", "Mooonstre le brother");
+        eSender.sendMail("Test", "Mooonstre le brother");
     }
 
 
