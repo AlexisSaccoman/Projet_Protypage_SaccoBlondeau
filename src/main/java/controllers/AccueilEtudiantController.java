@@ -798,12 +798,21 @@ public class AccueilEtudiantController implements Initializable {
         }
     }
 
-    public void sendMail(String prof, String content) {
+    @FXML
+    public void sendMail(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Voulez-vous envoyer un mail à Mr/Mme ?");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.CANCEL) {
+            return;
+        }
         EmailSender eSender = new EmailSender();
-        sendMail(prof, content);
+        EmailSender.sendMail("Test", "Mooonstre le brother");
     }
 
-    @FXML
+
+    /*@FXML
     private void handleCreneauClic(MouseEvent event) {
 
         if (event.getSource() instanceof Node) {
@@ -813,18 +822,12 @@ public class AccueilEtudiantController implements Initializable {
                 // Appel de la fonction sendMail()
                 // todo récupérer le professeur de l'évènement
 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText("Voulez-vous envoyer un mail à Mr/Mme ?");
-                alert.showAndWait();
-                if (alert.getResult() == ButtonType.CANCEL) {
-                    return;
-                }
+
                 //sendMail(prof, "Bonjour ceci est un mail automatique, veuillez ne pas y répondre.");
                 System.out.println("Cliqué");
             }
         }
-    }
+    }*/
 
 
 
@@ -881,10 +884,10 @@ public class AccueilEtudiantController implements Initializable {
             Scene scene = grid_edt.getScene();
             setUntraversable(scene);
             scene.setOnKeyPressed(this::handleKey);
-            grid_edt.setOnMouseClicked(event -> {
+            /*grid_edt.setOnMouseClicked(event -> {
                 // récupérer les évènements de clic sur les créneaux
                 handleCreneauClic(event);
-            });
+            });*/
         });
     }
 

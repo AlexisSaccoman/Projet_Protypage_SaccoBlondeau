@@ -1,5 +1,7 @@
 controllers\LoginController.class
+controllers\divers\EmailSender.class
 controllers\AccueilEtudiantController.class
+controllers\divers\EmailSender$1.class
 Main.class
 controllers\AccueilEtudiantController$1.class
 controllers\divers\Personne.class

@@ -7,11 +7,11 @@ import jakarta.mail.internet.*;
 public class EmailSender {
     public static void sendMail(String prof, String content) {
         // Paramètres de l'expéditeur
-        String senderEmail = "envoiAutomatiqueIG@gmail.com";
+        String senderEmail = "envoiautomatiqueig@gmail.com";
         String senderPassword = "Sb123456789";
 
         // Paramètres du destinataire
-        String recipientEmail = "envoiAutomatiqueIG@gmail.com";
+        String recipientEmail = "envoiautomatiqueig@gmail.com";
 
         // Configuration des propriétés pour la session
         Properties properties = new Properties();
