@@ -28,24 +28,11 @@ public class Main extends Application {
         System.out.println("Cours : " + creneauController.getCours().size());
         creneauController.afficherEmploiDuTemps(creneauController.getCours());
 
-        // ArrayList<Creneau> coursAujourdhui = creneauController.getCoursByDay("2024-03-14");
-        // creneauController.afficherEmploiDuTemps(coursAujourdhui);
-
-        // ArrayList<Creneau> coursVernet = creneauController.getCoursByProf("VERNET");
-        // creneauController.afficherEmploiDuTemps(coursVernet);
-
-        //ArrayList<Creneau> coursSalle = creneauController.getCoursBySalle("C 137");
-        //creneauController.afficherEmploiDuTemps(coursSalle);
-
-//        ArrayList<Creneau> groupe = creneauController.getCoursByAnything("M1-ILSEN-cla-Gr2");
-//        creneauController.afficherEmploiDuTemps(groupe);
-
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Charge le fichier FXML de votre interface utilisateur (Login.fxml)
         Parent root = FXMLLoader.load(getClass().getResource("components/login/LoginInterface.fxml"));
         primaryStage.setTitle("P-ETD-H");
 

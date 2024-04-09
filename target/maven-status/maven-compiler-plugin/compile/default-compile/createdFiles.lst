@@ -1,8 +1,0 @@
-controllers\LoginController.class
-controllers\divers\EmailSender.class
-controllers\AccueilEtudiantController.class
-Main.class
-controllers\AccueilEtudiantController$1.class
-controllers\divers\Personne.class
-controllers\MenuController.class
-controllers\divers\DB.class

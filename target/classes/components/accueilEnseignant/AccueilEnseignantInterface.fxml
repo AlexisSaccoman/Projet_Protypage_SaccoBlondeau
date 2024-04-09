@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
+<AnchorPane prefHeight="800.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccueilEtudiantController">
     <children>
         <HBox prefHeight="800.0" prefWidth="1070.0" styleClass="box">
             <children>
@@ -192,7 +192,7 @@
                                         <ChoiceBox fx:id="ajouterEvenement_couleur" prefWidth="150.0">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="Vert"/>
+                                                    <String fx:value="Vert" />
                                                     <String fx:value="Rouge" />
                                                 </FXCollections>
                                             </items>
@@ -253,11 +253,6 @@
                                     <children>
                                         <VBox alignment="CENTER">
                                             <children>
-                                                <Label fx:id="edt_affichage_date" prefHeight="100.0" text="01-07 January  2024">
-                                                    <font>
-                                                        <Font size="24.0" />
-                                                    </font>
-                                                </Label>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Button fx:id="time_backward" mnemonicParsing="false" onAction="#previousWeek" text="&lt;">

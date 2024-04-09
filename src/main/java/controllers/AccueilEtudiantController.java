@@ -61,6 +61,8 @@ public class AccueilEtudiantController implements Initializable {
 
     private String modeAffichage = "week"; // soit "week" soit "day" soit "month"
 
+    public String roleUtilisateur;
+
     @FXML
     private GridPane grid_edt;
 
@@ -789,7 +791,7 @@ public class AccueilEtudiantController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/components/menu/MenuInterface.fxml"));
             Parent root = loader.load();
             MenuController controller = loader.getController();
-            controller.initData("/components/accueilEtudiant/" + db.getCssPath(role, nomPrenom.getText()) + ".css", nomPrenom.getText(), LocalDate.now(), "etudiant");
+            controller.initData("/components/accueilEtudiant/" + db.getCssPath(role, nomPrenom.getText()) + ".css", nomPrenom.getText(), LocalDate.now(), role);
             Scene scene = new Scene(root);
             Stage stage = (Stage) grid_edt.getScene().getWindow();
             stage.setScene(scene);

@@ -24,7 +24,7 @@ public class MenuController{
 
     @FXML
     void Deconnexion(ActionEvent event) {
-        switch2Interface("/components/login/LoginInterface.fxml");
+        goLogin("/components/login/LoginInterface.fxml");
     }
 
     @FXML
@@ -66,9 +66,23 @@ public class MenuController{
         }
     }
 
+    public void goLogin(String path){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) bg_menu.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     private void goToAccueil() {
+        System.out.println("Role utilisateur : " + role);
         String path = "";
         if(role.equals("etudiant")) {
             path = "/components/accueilEtudiant/AccueilEtudiantInterface.fxml";

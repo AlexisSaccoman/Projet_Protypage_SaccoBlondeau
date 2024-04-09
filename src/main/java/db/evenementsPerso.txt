@@ -1,5 +1,7 @@
 sacco;2024-04-03;11:30;13:00;Stat 7 = Info - C 128;sasa;Vert
 blondeau;2024-04-06;13:30;15:30;null;segs;Vert
 sacco;2024-04-12;11:00;12:00;Stat 7 = Info - C 128;test resa stat 7;Vert
-blondeau;2024-04-12;12:00;12:30;Stat 7 = Info - C 128;caca;Rouge
+blondeau;2024-04-12;12:00;12:30;Stat 7 = Info - C 128;Faire semblant de travailler (en fait joue à valo);Rouge
 sacco;2024-04-04;13:00;14:30;Stat 1 = Info - C 137;Apéro;Rouge
+cecillion;2024-04-09;11:30;13:00;Res = C 132 Reseaux;contrôle tête de noeil;Rouge
+cecillion;2024-04-09;13:00;14:30;Res = C 132 Reseaux;contrôle;Vert

@@ -234,11 +234,7 @@
                                     <children>
                                         <VBox alignment="CENTER">
                                             <children>
-                                                <Label fx:id="edt_affichage_date" prefHeight="100.0" text="01-07 January  2024">
-                                                    <font>
-                                                        <Font size="24.0" />
-                                                    </font>
-                                                </Label>
+
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Button fx:id="time_backward" mnemonicParsing="false" onAction="#previousWeek" text="&lt;">
